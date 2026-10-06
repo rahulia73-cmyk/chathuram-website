@@ -45,9 +45,10 @@
 
 })(jQuery);
 
-// Scroll rails: the pawn hops along a strip of squares as the page scrolls,
-// and becomes a queen on the last square. Wide screens get a strip down the
-// left edge (data-axis="y"); laptops and phones get one under the menu ("x").
+// Scroll rails: as the page scrolls, the square under the piece dissolves
+// and the piece drops onto the next square. On the last square it becomes a
+// queen. Wide screens get a strip down the left edge (data-axis="y");
+// laptops and phones get one under the menu ("x").
 (function () {
 	'use strict';
 
@@ -70,7 +71,7 @@
 	var queued = false;
 
 	var replay = function (rail, cls) {
-		rail.spinner.classList.remove('is-hopping', 'is-promoting');
+		rail.spinner.classList.remove('is-landing', 'is-promoting');
 		// restart the CSS animation
 		rail.spinner.getBoundingClientRect();
 		rail.spinner.classList.add(cls);
@@ -83,33 +84,40 @@
 			return;
 		}
 		var last = rail.tiles.length - 1;
-		var index = Math.round(progress * last);
-		var tile = rail.tiles[index];
-		// stand the piece on the middle of its square
-		if (rail.axis === 'x') {
-			var x = rail.track.offsetLeft + tile.offsetLeft + tile.offsetWidth / 2;
-			rail.piece.style.transform = 'translateX(' + x + 'px)';
-		} else {
-			var y = rail.track.offsetTop + tile.offsetTop + tile.offsetHeight / 2;
-			rail.piece.style.transform = 'translateY(' + y + 'px)';
-		}
+		var f = progress * last;
+		var index = Math.min(last, Math.floor(f + 0.0001));
+		// how far the square under the piece has dissolved (0 to 1)
+		var fade = index === last ? 0 : Math.min(1, Math.max(0, (f - index - 0.1) / 0.8));
 
-		if (index === rail.current) {
-			return;
-		}
-		var first = rail.current === -1;
 		rail.tiles.forEach(function (t, i) {
-			t.classList.toggle('is-visited', i < index);
+			var opacity = i < index ? 0 : (i === index ? 1 - fade : 1);
+			t.style.opacity = opacity;
 			t.classList.toggle('is-current', i === index);
 		});
-		var name = index === last ? 'queen' : 'pawn';
-		rail.imgs.forEach(function (img) {
-			img.classList.toggle('is-current', img.getAttribute('data-piece') === name);
-		});
-		if (!first) {
-			replay(rail, index === last ? 'is-promoting' : 'is-hopping');
+		// the piece wobbles a little as its square disappears
+		rail.spinner.style.rotate = (fade * 7) + 'deg';
+
+		if (index !== rail.current) {
+			var falling = index > rail.current;
+			var tile = rail.tiles[index];
+			rail.piece.classList.toggle('is-falling', falling);
+			if (rail.axis === 'x') {
+				rail.piece.style.transform = 'translateX(' + (rail.track.offsetLeft + tile.offsetLeft + tile.offsetWidth / 2) + 'px)';
+			} else {
+				rail.piece.style.transform = 'translateY(' + (rail.track.offsetTop + tile.offsetTop + tile.offsetHeight / 2) + 'px)';
+			}
+			var name = index === last ? 'queen' : 'pawn';
+			var changed = rail.imgs.some(function (img) {
+				return img.classList.contains('is-current') !== (img.getAttribute('data-piece') === name);
+			});
+			rail.imgs.forEach(function (img) {
+				img.classList.toggle('is-current', img.getAttribute('data-piece') === name);
+			});
+			if (rail.current !== -1) {
+				replay(rail, changed ? 'is-promoting' : 'is-landing');
+			}
+			rail.current = index;
 		}
-		rail.current = index;
 	};
 
 	var update = function () {
@@ -129,14 +137,20 @@
 	};
 
 	window.addEventListener('scroll', request, { passive: true });
-	window.addEventListener('resize', request);
+	window.addEventListener('resize', function () {
+		// recalculate positions for the new layout
+		rails.forEach(function (rail) {
+			rail.current = -1;
+		});
+		request();
+	});
 	window.addEventListener('load', request);
 	update();
 })();
 
-// Pawn path: the mascot spin-jumps up one slanted square per level,
+// Pawn path: the mascot hops up one slanted square per level,
 // from 01 Beginner to 08 Grand Master. On the last square it promotes,
-// spinning into a queen, knight, rook and bishop: every pawn can be more.
+// turning into a queen, knight, rook and bishop: every pawn can be more.
 (function () {
 	'use strict';
 
@@ -219,28 +233,26 @@
 		}
 	};
 
-	// one jump: the body travels along an arc while the piece spins and squashes
+	// one jump: a slow, soft hop along an arc with a slight lean, no spinning
 	var jump = function (from, to, opts, done) {
 		var a = pos(from);
 		var b = pos(to);
-		var dir = hops++ % 2 ? -1 : 1;
-		var turns = 360 * (opts.turns || 1) * dir;
-		var duration = opts.duration || 760;
+		var lean = (hops++ % 2 ? -1 : 1) * 6;
+		var duration = opts.duration || 1100;
 		busy = true;
 		pawn.animate([
 			{ transform: at(a.x, a.y) },
-			{ transform: at(a.x, a.y), offset: 0.12 },
-			{ transform: at((a.x + b.x) / 2, (a.y + b.y) / 2 - opts.lift), offset: 0.52, easing: 'ease-in' },
-			{ transform: at(b.x, b.y), offset: 0.88 },
+			{ transform: at(a.x, a.y), offset: 0.15 },
+			{ transform: at((a.x + b.x) / 2, (a.y + b.y) / 2 - opts.lift), offset: 0.55, easing: 'ease-in' },
+			{ transform: at(b.x, b.y), offset: 0.9 },
 			{ transform: at(b.x, b.y) }
 		], { duration: duration, easing: 'ease-out' });
 		var anim = spin.animate([
 			{ transform: turn(0, 1, 1) },
-			{ transform: turn(0, 1.18, 0.78), offset: 0.12 },
-			{ transform: turn(0, 0.9, 1.12), offset: 0.2 },
-			{ transform: turn(turns, 1, 1), offset: 0.8 },
-			{ transform: turn(turns, 1.16, 0.8), offset: 0.9 },
-			{ transform: turn(turns, 1, 1) }
+			{ transform: turn(-lean / 2, 1.05, 0.94), offset: 0.15 },
+			{ transform: turn(lean, 1, 1), offset: 0.55 },
+			{ transform: turn(0, 1.04, 0.96), offset: 0.92 },
+			{ transform: turn(0, 1, 1) }
 		], { duration: duration, easing: 'ease-in-out' });
 		if (opts.swapTo) {
 			window.setTimeout(function () {
@@ -277,9 +289,11 @@
 			return;
 		}
 		var piece = promotions[k];
-		jump(last, last, { lift: 70, turns: 2, duration: 1000, swapTo: piece }, function () {
+		var onSwap = function () {
+			caption('Promotion', 'Pawn \u2192 ' + names[piece]);
+		};
+		jump(last, last, { lift: 40, duration: 1200, swapTo: piece, onSwap: onSwap }, function () {
 			sparkle();
-			caption('Promotion', 'Pawn → ' + names[piece]);
 			wait(1100, function () {
 				promote(k + 1);
 			});
@@ -297,14 +311,14 @@
 		var next = current + 1;
 		tiles[next].classList.add('is-target');
 		wait(300, function () {
-			jump(current, next, { lift: 60 }, function () {
+			jump(current, next, { lift: 34 }, function () {
 				for (var i = 0; i < next; i++) {
 					tiles[i].classList.add('is-visited');
 				}
 				tiles[next].classList.remove('is-target');
 				current = next;
 				place(current);
-				wait(current === last ? 400 : 380, step);
+				wait(current === last ? 500 : 450, step);
 			});
 		});
 	};

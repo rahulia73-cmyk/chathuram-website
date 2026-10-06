@@ -47,12 +47,7 @@
     height: 13px;
     background: $black;
     transform: skewX(-38deg) rotate(-12deg);
-    transition: background-color .3s ease, opacity .3s ease;
-
-    &.is-visited {
-      background: $brand-gray;
-      opacity: .45;
-    }
+    transition: background-color .3s ease, opacity .12s linear;
 
     &.is-current {
       background: $primary-color;
@@ -64,8 +59,14 @@
     left: 50%;
     top: 0;
     width: 0;
-    transition: transform .45s cubic-bezier(.45, 0, .3, 1);
+    // rising back up when scrolling up
+    transition: transform .5s cubic-bezier(.2, .7, .3, 1);
     will-change: transform;
+
+    // dropping onto the next square, like falling under gravity
+    &.is-falling {
+      transition: transform .55s cubic-bezier(.55, 0, .9, .45);
+    }
   }
 
   &-spin {
@@ -89,49 +90,47 @@
       }
     }
 
-    &.is-hopping {
-      animation: rail-hop .55s ease-in-out;
+    transition: rotate .15s linear;
+
+    &.is-landing {
+      animation: rail-land .7s ease-out;
     }
 
     &.is-promoting {
-      animation: rail-promote .8s ease-in-out;
+      animation: rail-promote 1s ease-out;
     }
   }
 }
 
-@keyframes rail-hop {
-  0% {
+@keyframes rail-land {
+  0%,
+  70% {
     transform: none;
   }
 
-  20% {
-    transform: scale(1.12, .85);
-  }
-
-  50% {
-    transform: translateY(-16px) rotate(180deg);
-  }
-
-  85% {
-    transform: rotate(360deg) scale(1.08, .9);
+  82% {
+    transform: scale(1.1, .86);
   }
 
   100% {
-    transform: rotate(360deg);
+    transform: none;
   }
 }
 
 @keyframes rail-promote {
-  0% {
+  0%,
+  70% {
     transform: none;
+    opacity: .4;
   }
 
-  50% {
-    transform: translateY(-26px) rotate(360deg) scale(1.15);
+  85% {
+    transform: scale(1.12);
+    opacity: 1;
   }
 
   100% {
-    transform: rotate(720deg);
+    transform: none;
   }
 }
 
@@ -140,7 +139,7 @@
     transition: none;
   }
 
-  .scroll-rail-spin.is-hopping,
+  .scroll-rail-spin.is-landing,
   .scroll-rail-spin.is-promoting {
     animation: none;
   }
