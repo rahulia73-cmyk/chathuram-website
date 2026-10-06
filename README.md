@@ -7,6 +7,10 @@ Built from the [Educenter](https://github.com/themefisher/educenter) template by
 ## Editing content
 
 - **Contact details** (phone, WhatsApp, email, address, map, social links): `source/site.json`. They are used on every page.
+- **Optional home page sections** (hidden until filled in, all in `source/site.json`):
+  - `kindleLink`: link to the kids' puzzle book on Kindle. Until it is set, the book section says "Coming soon on Kindle".
+  - `homeVideoYouTubeId`: the ID of a YouTube video (the part after `v=`) for the "Chathuram in a minute" section. Or put a short `.mp4` in `source/static/videos/` and set `homeVideoFile` to `videos/name.mp4` (YouTube is better for large files).
+  - `studentPhotos`: put photos in `source/images/students/` and list them, e.g. `{"src": "images/students/class-1.jpg", "alt": "Students solving puzzles"}`. The "Our students" gallery appears once there is at least one.
 - **Pages**: `source/index.html`, `programs.html`, `coaches.html`, `pricing.html`, `contact.html`.
 - **Shared parts**: `source/partials/` (menu, footer, call-to-action, program cards, pawn animation).
 - **Colours and fonts**: `source/scss/_variables.scss`.

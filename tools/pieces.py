@@ -7,7 +7,6 @@ smile notch) and sits on a base whose shape shows how the piece moves:
   rook   - a straight, square-edged slab
   queen  - a flat slab with diagonal wings (straight + diagonal)
   knight - an L-shaped step
-  king   - a small, compact square (one step in any direction)
 
 Run from the repository root:  python3 tools/pieces.py
 """
@@ -50,15 +49,6 @@ PIECES = {
         "body": "M110 248 Q150 238 190 248 Q206 360 252 490 L48 490 Q94 360 110 248 Z",
         "base": "M-40 520 L56 468 V452 H244 V468 L340 520 Z",
     },
-    "king": {
-        "head": ('<path d="M139 10 H161 V32 H183 V52 H161 V72 H139 V52 H117 V32 H139 Z"/>'
-                 '<circle cx="150" cy="136" r="58"/>'),
-        "cuts": ['<path d="M170 140 q20 8 40 1" fill="none" stroke-width="7" stroke-linecap="round"/>',
-                 '<path d="M100 80 H200" fill="none" stroke-width="8"/>'],
-        "collar": "M92 206 Q150 180 208 206 L210 234 Q150 210 90 234 Z",
-        "body": "M112 250 Q150 240 188 250 Q200 360 226 490 L74 490 Q100 360 112 250 Z",
-        "base": "M84 446 H216 Q234 446 234 464 V512 H66 V464 Q66 446 84 446 Z",
-    },
     "knight": {
         "head": ('<path d="M104 232 C92 160 96 92 116 50 L124 18 L146 46 C186 58 222 94 242 128 '
                  'Q250 146 238 160 Q222 170 198 162 C192 186 194 206 198 232 Z"/>'),
@@ -70,7 +60,7 @@ PIECES = {
     },
 }
 
-ORDER = ["pawn", "knight", "bishop", "rook", "queen", "king"]
+ORDER = ["pawn", "knight", "bishop", "rook", "queen"]
 
 
 def piece_group(name, fill, prefix):

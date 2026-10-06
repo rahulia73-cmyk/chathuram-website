@@ -14,7 +14,7 @@
           <a href="contact.html" class="btn btn-primary mr-3 mb-3">Enquire now</a>
           <a href="programs.html" class="btn btn-outline-dark mb-3">See our programs</a>
         </div>
-        <p class="hero-note"><span><i class="ti-check text-primary mr-1" aria-hidden="true"></i>First class free</span><span><i class="ti-check text-primary mr-1" aria-hidden="true"></i>No registration fee</span><span><i class="ti-check text-primary mr-1" aria-hidden="true"></i>Ages 5 and up</span></p>
+        <p class="hero-note"><span><i class="ti-check text-primary mr-1" aria-hidden="true"></i>First class free</span><span><i class="ti-check text-primary mr-1" aria-hidden="true"></i>No registration fee</span><span><i class="ti-check text-primary mr-1" aria-hidden="true"></i>Ages 6 and up</span></p>
       </div>
       <div class="col-lg-6">
         @@include('blocks/pawn-path.htm')
@@ -23,6 +23,28 @@
   </div>
 </section>
 <!-- /hero -->
+
+@@if (homeVideoYouTubeId || homeVideoFile) {
+<!-- about video -->
+<section class="section video-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-4 mb-4 mb-lg-0">
+        <p class="eyebrow">About us</p>
+        <h2 class="mb-3">Chathuram in a minute.</h2>
+        <p class="mb-0">See how we teach, and meet the pawn that becomes more.</p>
+      </div>
+      <div class="col-lg-8">
+        <div class="video-frame">
+          @@if (homeVideoYouTubeId) {<iframe src="https://www.youtube-nocookie.com/embed/@@homeVideoYouTubeId" title="About Chathuram Chess Academy" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>}
+          @@if (!homeVideoYouTubeId) {<video src="@@homeVideoFile" controls playsinline preload="metadata"></video>}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /about video -->
+}
 
 <!-- why chathuram -->
 <section class="section bg-gray">
@@ -53,7 +75,7 @@
         <div class="feature-card h-100">
           <span class="tile-icon" aria-hidden="true"></span>
           <h3 class="h4">Eight clear levels</h3>
-          <p class="mb-0">From Beginner Level to Grand Master Level, students move up when they are ready. Ages 5 and up.</p>
+          <p class="mb-0">From Beginner Level to Grand Master Level, students move up when they are ready. Ages 6 and up.</p>
         </div>
       </div>
       <div class="col-lg-3 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="300">
@@ -79,35 +101,30 @@
       </div>
     </div>
     <div class="row pieces-lineup">
-      <div class="col-lg-2 col-md-4 col-6 mb-5 piece-item" data-aos="fade-up">
+      <div class="col-lg col-md-4 col-6 mb-5 piece-item" data-aos="fade-up">
         <img class="piece-img pose-tilt" src="images/brand/pieces/pawn.svg" alt="Chathuram pawn">
         <h3 class="h5">Pawn</h3>
         <p>Steps forward, captures diagonally. <strong>A one-way diagonal base.</strong></p>
       </div>
-      <div class="col-lg-2 col-md-4 col-6 mb-5 piece-item" data-aos="fade-up" data-aos-delay="80">
+      <div class="col-lg col-md-4 col-6 mb-5 piece-item" data-aos="fade-up" data-aos-delay="80">
         <img class="piece-img pose-flip" src="images/brand/pieces/knight.svg" alt="Chathuram knight">
         <h3 class="h5">Knight</h3>
         <p>Jumps in an L. <strong>An L-shaped step for a base.</strong></p>
       </div>
-      <div class="col-lg-2 col-md-4 col-6 mb-5 piece-item" data-aos="fade-up" data-aos-delay="160">
+      <div class="col-lg col-md-4 col-6 mb-5 piece-item" data-aos="fade-up" data-aos-delay="160">
         <img class="piece-img pose-tilt-back" src="images/brand/pieces/bishop.svg" alt="Chathuram bishop">
         <h3 class="h5">Bishop</h3>
         <p>Slides along diagonals. <strong>A base sweeping down both diagonals.</strong></p>
       </div>
-      <div class="col-lg-2 col-md-4 col-6 mb-5 piece-item" data-aos="fade-up" data-aos-delay="240">
+      <div class="col-lg col-md-4 col-6 mb-5 piece-item" data-aos="fade-up" data-aos-delay="240">
         <img class="piece-img" src="images/brand/pieces/rook.svg" alt="Chathuram rook">
         <h3 class="h5">Rook</h3>
         <p>Moves in straight lines. <strong>A straight, square-edged base.</strong></p>
       </div>
-      <div class="col-lg-2 col-md-4 col-6 mb-5 piece-item" data-aos="fade-up" data-aos-delay="320">
+      <div class="col-lg col-md-4 col-6 mb-5 piece-item" data-aos="fade-up" data-aos-delay="320">
         <img class="piece-img pose-tilt" src="images/brand/pieces/queen.svg" alt="Chathuram queen">
         <h3 class="h5">Queen</h3>
         <p>Straight and diagonal. <strong>A flat base with diagonal wings.</strong></p>
-      </div>
-      <div class="col-lg-2 col-md-4 col-6 mb-5 piece-item" data-aos="fade-up" data-aos-delay="400">
-        <img class="piece-img pose-flip" src="images/brand/pieces/king.svg" alt="Chathuram king">
-        <h3 class="h5">King</h3>
-        <p>One step, any direction. <strong>A small, square base.</strong></p>
       </div>
     </div>
   </div>
@@ -130,6 +147,47 @@
   </div>
 </section>
 <!-- /programs preview -->
+
+<!-- puzzle book -->
+<section class="section bg-gray book-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-5 mb-5 mb-lg-0 text-center">
+        <div class="book-cover" aria-hidden="true">
+          <span class="book-cover-title">Chess Puzzles<br>for Kids</span>
+          <img src="images/brand/pieces/pawn-light.svg" alt="">
+          <span class="book-cover-brand">Chathuram<span class="text-primary">.</span></span>
+        </div>
+      </div>
+      <div class="col-lg-6 offset-lg-1">
+        <p class="eyebrow">Our puzzle book</p>
+        <h2 class="mb-3">Puzzles we wrote for our young players.</h2>
+        <p>We created our own chess puzzle book for kids, the same puzzles our students solve in class. Kids can keep practising at home, one square at a time.</p>
+        @@if (kindleLink) {<a href="@@kindleLink" class="btn btn-primary mt-2" target="_blank" rel="noopener">Get it on Kindle</a>}
+        @@if (!kindleLink) {<p class="book-soon"><i class="ti-book text-primary mr-2" aria-hidden="true"></i>Coming soon on Kindle</p>}
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /puzzle book -->
+
+@@if (studentPhotos.length) {
+<!-- students -->
+<section class="section">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-lg-7">
+        <p class="eyebrow">Our students</p>
+        <h2>Small players, big moves.</h2>
+      </div>
+    </div>
+    <div class="row student-gallery">
+      @@for (var i = 0; i < studentPhotos.length; i++) {<div class="col-lg-4 col-6 mb-4"><img class="img-fluid" src="`+studentPhotos[i].src+`" alt="`+studentPhotos[i].alt+`" loading="lazy"></div>}
+    </div>
+  </div>
+</section>
+<!-- /students -->
+}
 
 @@include('blocks/cta.htm')
 

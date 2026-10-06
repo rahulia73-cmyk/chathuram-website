@@ -14,5 +14,11 @@
   "programs": "",
   "coaches": "",
   "pricing": "",
-  "contact": ""
+  "contact": "",
+  "_comment_media": "Optional sections on the home page. Each one stays hidden until it is filled in.",
+  "kindleLink": "",
+  "homeVideoYouTubeId": "",
+  "homeVideoFile": "",
+  "_comment_photos": "Put photos in source/images/students/ and list them here, e.g. {\"src\": \"images/students/class-1.jpg\", \"alt\": \"Students solving puzzles in class\"}",
+  "studentPhotos": []
 }
