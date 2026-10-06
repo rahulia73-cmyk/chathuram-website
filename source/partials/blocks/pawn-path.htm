@@ -1,0 +1,46 @@
+<!-- pawn path animation: the pawn climbs the slanted squares from rank 2 to rank 8 -->
+<div class="pawn-path" data-pawn-path>
+  <svg class="pawn-path-svg" viewBox="0 0 600 640" role="img" aria-labelledby="pp-title">
+    <title id="pp-title">The Chathuram pawn stepping up a path of squares, from rank 2 to rank 8</title>
+    <defs>
+      <mask id="pp-head" maskUnits="userSpaceOnUse" x="0" y="0" width="290" height="520">
+        <rect width="290" height="520" fill="#fff"/>
+        <path d="M174 102 q24 10 52 2" fill="none" stroke="#000" stroke-width="7" stroke-linecap="round"/>
+      </mask>
+      <mask id="pp-body" maskUnits="userSpaceOnUse" x="0" y="0" width="290" height="520">
+        <rect width="290" height="520" fill="#fff"/>
+        <path d="M20 508 Q22 452 80 432 Q172 416 250 468 Q268 488 268 508 Z" stroke="#000" stroke-width="12" stroke-linejoin="round"/>
+      </mask>
+    </defs>
+    <g class="pp-ranks" aria-hidden="true">
+      <text class="pp-rank" x="56" y="606">2</text>
+      <text class="pp-rank" x="114" y="532">3</text>
+      <text class="pp-rank" x="172" y="458">4</text>
+      <text class="pp-rank" x="230" y="384">5</text>
+      <text class="pp-rank" x="288" y="310">6</text>
+      <text class="pp-rank" x="346" y="236">7</text>
+      <text class="pp-rank" x="404" y="162">8</text>
+    </g>
+    <g class="pp-tiles">
+      <polygon class="pp-tile" data-rank="2" data-x="139" data-y="596.5" points="70,600 120,582 208,593 158,611"/>
+      <polygon class="pp-tile" data-rank="3" data-x="197" data-y="522.5" points="128,526 178,508 266,519 216,537"/>
+      <polygon class="pp-tile" data-rank="4" data-x="255" data-y="448.5" points="186,452 236,434 324,445 274,463"/>
+      <polygon class="pp-tile" data-rank="5" data-x="313" data-y="374.5" points="244,378 294,360 382,371 332,389"/>
+      <polygon class="pp-tile" data-rank="6" data-x="371" data-y="300.5" points="302,304 352,286 440,297 390,315"/>
+      <polygon class="pp-tile" data-rank="7" data-x="429" data-y="226.5" points="360,230 410,212 498,223 448,241"/>
+      <polygon class="pp-tile" data-rank="8" data-x="487" data-y="152.5" points="418,156 468,138 556,149 506,167"/>
+    </g>
+    <ellipse class="pp-glow" cx="0" cy="0" rx="74" ry="20"/>
+    <g class="pp-pawn">
+      <g transform="translate(-44.6 -157.5) scale(0.31)">
+        <circle cx="150" cy="95" r="72" mask="url(#pp-head)"/>
+        <path class="pp-collar" d="M88 198 Q150 166 216 182 L218 214 Q150 200 92 228 Z"/>
+        <path d="M110 242 Q160 230 206 242 Q212 350 236 452 L58 420 Q100 340 110 242 Z" mask="url(#pp-body)"/>
+        <path d="M20 508 Q22 452 80 432 Q172 416 250 468 Q268 488 268 508 Z"/>
+      </g>
+    </g>
+  </svg>
+  <button type="button" class="pawn-path-toggle" aria-pressed="false" hidden>
+    <span class="sr-only">Pause animation</span><i class="ti-control-pause" aria-hidden="true"></i>
+  </button>
+</div>

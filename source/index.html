@@ -1,81 +1,90 @@
-@@include('header.htm')
+@@include('header.htm', {"title": "Chathuram Chess Academy | Chess classes in Hyderabad and online", "description": "Chathuram Chess Academy offers structured chess coaching for children and adults, in Hyderabad and online. Book a free trial class."})
 
 @@include('blocks/navigation.htm', {"home": "active"})
 
-@@include('blocks/slider.htm')
-
-@@include('blocks/banner-feature.htm')
-
-@@include('blocks/about.htm')
-
-<!-- courses -->
-<section class="section-sm">
+<!-- hero -->
+<section class="hero-section">
   <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="d-flex align-items-center section-title justify-content-between">
-          <h2 class="mb-0 text-nowrap mr-3">Our Course</h2>
-          <div class="border-top w-100 border-primary d-none d-sm-block"></div>
-          <div>
-            <a href="courses.html" class="btn btn-sm btn-outline-primary ml-sm-3 d-none d-sm-block">see all</a>
-          </div>
+    <div class="row align-items-center">
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <p class="eyebrow">Chess academy &middot; Hyderabad &amp; Online</p>
+        <h1 class="mb-4">Every pawn can become a queen<span class="text-primary">.</span></h1>
+        <p class="lead-text mb-5">Structured chess coaching for children and adults. We take every student from their first move to confident tournament play, one square at a time.</p>
+        <div class="d-flex flex-wrap">
+          <a href="contact.html" class="btn btn-primary mr-3 mb-3">Book a free trial</a>
+          <a href="programs.html" class="btn btn-outline-dark mb-3">See our programs</a>
         </div>
       </div>
-    </div>
-    @@include('blocks/course.htm')
-    <!-- mobile see all button -->
-    <div class="row">
-      <div class="col-12 text-center">
-        <a href="courses.html" class="btn btn-sm btn-outline-primary d-sm-none d-inline-block">sell all</a>
+      <div class="col-lg-6">
+        @@include('blocks/pawn-path.htm')
       </div>
     </div>
   </div>
 </section>
-<!-- /courses -->
+<!-- /hero -->
 
-@@include('blocks/cta.htm')
-
-@@include('blocks/success-story.htm')
-
-<!-- events -->
+<!-- why chathuram -->
 <section class="section bg-gray">
   <div class="container">
     <div class="row">
-      <div class="col-12">
-        <div class="d-flex align-items-center section-title justify-content-between">
-          <h2 class="mb-0 text-nowrap mr-3">Upcoming Events</h2>
-          <div class="border-top w-100 border-primary d-none d-sm-block"></div>
-          <div>
-            <a href="events.html" class="btn btn-sm btn-outline-primary ml-sm-3 d-none d-sm-block">see all</a>
-          </div>
+      <div class="col-lg-7 mb-5">
+        <p class="eyebrow">Why Chathuram</p>
+        <h2 class="mb-3">A clear path from beginner to tournament player.</h2>
+        <p>Like a pawn, every student moves forward one square at a time. Each level has clear goals, so students and parents always know the next move.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-sm-6 mb-4" data-aos="fade-up">
+        <div class="feature-card h-100">
+          <span class="tile-icon" aria-hidden="true"></span>
+          <h3 class="h4">In Hyderabad &amp; online</h3>
+          <p class="mb-0">Learn in person at our Hyderabad centre or join live classes online from anywhere.</p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="feature-card h-100">
+          <span class="tile-icon" aria-hidden="true"></span>
+          <h3 class="h4">Level-based batches</h3>
+          <p class="mb-0">Students are grouped by playing strength, so every class is challenging but never overwhelming.</p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="feature-card h-100">
+          <span class="tile-icon" aria-hidden="true"></span>
+          <h3 class="h4">Tournament ready</h3>
+          <p class="mb-0">Openings, tactics, endgames and game analysis, plus guidance for rated tournaments.</p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+        <div class="feature-card h-100">
+          <span class="tile-icon" aria-hidden="true"></span>
+          <h3 class="h4">Progress you can see</h3>
+          <p class="mb-0">Regular practice games and feedback so parents can follow each step forward.</p>
         </div>
       </div>
     </div>
-    @@include('blocks/events.htm')
-    <!-- mobile see all button -->
-    <div class="row">
-      <div class="col-12 text-center">
-        <a href="course.html" class="btn btn-sm btn-outline-primary d-sm-none d-inline-block">sell all</a>
-      </div>
-    </div>
   </div>
 </section>
-<!-- /events -->
+<!-- /why chathuram -->
 
-@@include('blocks/teachers.htm')
-
-<!-- blog -->
-<section class="section pt-0">
+<!-- programs preview -->
+<section class="section">
   <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <h2 class="section-title">Latest News</h2>
+    <div class="row align-items-end mb-5">
+      <div class="col-md-8">
+        <p class="eyebrow">Programs</p>
+        <h2 class="mb-0">Find your starting square.</h2>
+      </div>
+      <div class="col-md-4 text-md-right mt-3 mt-md-0">
+        <a href="programs.html" class="link-arrow">All programs <i class="ti-arrow-right ml-1"></i></a>
       </div>
     </div>
-    @@include('blocks/blog.htm')
+    @@include('blocks/program-cards.htm')
   </div>
 </section>
-<!-- /blog -->
+<!-- /programs preview -->
+
+@@include('blocks/cta.htm')
 
 @@include('blocks/footer.htm')
 

@@ -1,0 +1,21 @@
+{
+  "siteUrl": "https://rahulia73-cmyk.github.io/chathuram-website/",
+  "name": "Chathuram Chess Academy",
+  "tagline": "Chess coaching in Hyderabad and online",
+  "phone": "+91 00000 00000",
+  "phoneLink": "+910000000000",
+  "whatsappLink": "910000000000",
+  "email": "hello@example.com",
+  "addressLine1": "Studio address, Area",
+  "addressLine2": "Hyderabad, Telangana",
+  "mapQuery": "Hyderabad%2C+Telangana",
+  "instagram": "https://instagram.com/",
+  "youtube": "https://youtube.com/",
+  "facebook": "https://facebook.com/",
+  "_comment_nav": "Leave these empty: pages set them to \"active\" for the current menu item.",
+  "home": "",
+  "programs": "",
+  "coaches": "",
+  "pricing": "",
+  "contact": ""
+}

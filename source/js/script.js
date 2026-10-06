@@ -1,11 +1,6 @@
 (function ($) {
 	'use strict';
 
-	// Preloader js    
-	$(window).on('load', function () {
-		$('.preloader').fadeOut(700);
-	});
-
 	// Sticky Menu
 	$(window).scroll(function () {
 		var height = $('.top-header').innerHeight();
@@ -19,86 +14,188 @@
 			$('.navigation').css('margin-top', '-' + 0 + 'px');
 		}
 	});
-	// navbarDropdown
-	if ($(window).width() < 992) {
-		$('.navigation .dropdown-toggle').on('click', function () {
-			$(this).siblings('.dropdown-menu').animate({
-				height: 'toggle'
-			}, 300);
-		});
-	}
 
-	// Background-images
-	$('[data-background]').each(function () {
-		$(this).css({
-			'background-image': 'url(' + $(this).data('background') + ')'
-		});
-	});
+	// Current year in footer
+	$('[data-year]').text(new Date().getFullYear());
 
-	//Hero Slider
-	$('.hero-slider').slick({
-		autoplay: true,
-		autoplaySpeed: 7500,
-		pauseOnFocus: false,
-		pauseOnHover: false,
-		infinite: true,
-		arrows: true,
-		fade: true,
-		prevArrow: '<button type=\'button\' class=\'prevArrow\'><i class=\'ti-angle-left\'></i></button>',
-		nextArrow: '<button type=\'button\' class=\'nextArrow\'><i class=\'ti-angle-right\'></i></button>',
-		dots: true
-	});
-	$('.hero-slider').slickAnimation();
-
-	// venobox popup
-	$(document).ready(function () {
-		$('.venobox').venobox();
-	});
-
-
-	// filter
-	$(document).ready(function () {
-		var containerEl = document.querySelector('.filtr-container');
-		var filterizd;
-		if (containerEl) {
-			filterizd = $('.filtr-container').filterizr({});
-		}
-		//Active changer
-		$('.filter-controls li').on('click', function () {
-			$('.filter-controls li').removeClass('active');
-			$(this).addClass('active');
-		});
-	});
-
-	//  Count Up
-	function counter() {
-		var oTop;
-		if ($('.count').length !== 0) {
-			oTop = $('.count').offset().top - window.innerHeight;
-		}
-		if ($(window).scrollTop() > oTop) {
-			$('.count').each(function () {
-				var $this = $(this),
-					countTo = $this.attr('data-count');
-				$({
-					countNum: $this.text()
-				}).animate({
-					countNum: countTo
-				}, {
-					duration: 1000,
-					easing: 'swing',
-					step: function () {
-						$this.text(Math.floor(this.countNum));
-					},
-					complete: function () {
-						$this.text(this.countNum);
-					}
-				});
-			});
-		}
-	}
-	$(window).on('scroll', function () {
-		counter();
+	// Contact form: no server on GitHub Pages, so compose an email instead
+	$('[data-mailto-form]').on('submit', function (e) {
+		e.preventDefault();
+		var form = this;
+		var to = $(form).data('mailto-form');
+		var get = function (name) {
+			var field = form.elements[name];
+			return field ? $.trim(field.value) : '';
+		};
+		var subject = 'Trial class enquiry: ' + (get('program') || 'Chathuram Chess Academy');
+		var body = [
+			'Name: ' + get('name'),
+			'Email: ' + get('email'),
+			'Phone: ' + get('phone'),
+			'Student age: ' + get('age'),
+			'Program: ' + get('program'),
+			'Mode: ' + get('mode'),
+			'',
+			get('message')
+		].join('\n');
+		window.location.href = 'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
 	});
 
 })(jQuery);
+
+// Pawn path: the mascot climbs the slanted squares from rank 2 to rank 8.
+// A pawn may move two squares on its first move, then one at a time.
+(function () {
+	'use strict';
+
+	var root = document.querySelector('[data-pawn-path]');
+	if (!root || !root.animate) {
+		return;
+	}
+
+	var tiles = Array.prototype.slice.call(root.querySelectorAll('.pp-tile'));
+	var pawn = root.querySelector('.pp-pawn');
+	var glow = root.querySelector('.pp-glow');
+	var toggle = root.querySelector('.pawn-path-toggle');
+	var last = tiles.length - 1;
+	var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	var pos = function (i) {
+		return { x: parseFloat(tiles[i].getAttribute('data-x')), y: parseFloat(tiles[i].getAttribute('data-y')) };
+	};
+	var place = function (i) {
+		var p = pos(i);
+		pawn.style.transform = 'translate(' + p.x + 'px, ' + p.y + 'px)';
+	};
+	var clear = function () {
+		tiles.forEach(function (t) {
+			t.classList.remove('is-target', 'is-visited');
+		});
+		root.classList.remove('is-promoted');
+	};
+	var promote = function () {
+		var p = pos(last);
+		glow.setAttribute('cx', p.x);
+		glow.setAttribute('cy', p.y);
+		root.classList.remove('is-promoted');
+		// restart the CSS animation
+		glow.getBoundingClientRect();
+		root.classList.add('is-promoted');
+	};
+
+	if (reduceMotion) {
+		place(last);
+		tiles[last].classList.add('is-target');
+		return;
+	}
+
+	var current = 0;
+	var timer = null;
+	var playing = false;
+	var paused = false;
+	var visible = true;
+	var hopping = false;
+
+	var wait = function (ms, fn) {
+		if (playing) {
+			timer = window.setTimeout(fn, ms);
+		}
+	};
+
+	var hop = function (from, to, done) {
+		var a = pos(from);
+		var b = pos(to);
+		var lift = 46 + 20 * (to - from);
+		var anim = pawn.animate([
+			{ transform: 'translate(' + a.x + 'px, ' + a.y + 'px)' },
+			{ transform: 'translate(' + (a.x + b.x) / 2 + 'px, ' + ((a.y + b.y) / 2 - lift) + 'px)', offset: 0.5 },
+			{ transform: 'translate(' + b.x + 'px, ' + b.y + 'px)' }
+		], { duration: 520 + 140 * (to - from), easing: 'cubic-bezier(.45,0,.3,1)' });
+		hopping = true;
+		anim.onfinish = function () {
+			hopping = false;
+			place(to);
+			done();
+		};
+	};
+
+	var step = function () {
+		if (!playing) {
+			return;
+		}
+		if (current === last) {
+			promote();
+			wait(2600, function () {
+				clear();
+				current = 0;
+				place(0);
+				wait(700, step);
+			});
+			return;
+		}
+		var next = current === 0 ? 2 : current + 1;
+		tiles[next].classList.add('is-target');
+		wait(450, function () {
+			hop(current, next, function () {
+				for (var i = 0; i < next; i++) {
+					tiles[i].classList.add('is-visited');
+				}
+				tiles[next].classList.remove('is-target');
+				current = next;
+				wait(current === last ? 200 : 650, step);
+			});
+		});
+	};
+
+	var start = function () {
+		if (playing || paused || !visible || document.hidden) {
+			return;
+		}
+		playing = true;
+		// a hop already in flight carries on into the next step by itself
+		if (!hopping) {
+			step();
+		}
+	};
+	var stop = function () {
+		playing = false;
+		window.clearTimeout(timer);
+	};
+
+	place(0);
+
+	if ('IntersectionObserver' in window) {
+		new IntersectionObserver(function (entries) {
+			visible = entries[0].isIntersecting;
+			if (visible) {
+				start();
+			} else {
+				stop();
+			}
+		}).observe(root);
+	}
+	document.addEventListener('visibilitychange', function () {
+		if (document.hidden) {
+			stop();
+		} else {
+			start();
+		}
+	});
+
+	if (toggle) {
+		toggle.hidden = false;
+		toggle.addEventListener('click', function () {
+			paused = !paused;
+			toggle.setAttribute('aria-pressed', String(paused));
+			toggle.querySelector('.sr-only').textContent = paused ? 'Play animation' : 'Pause animation';
+			toggle.querySelector('i').className = paused ? 'ti-control-play' : 'ti-control-pause';
+			if (paused) {
+				stop();
+			} else {
+				start();
+			}
+		});
+	}
+
+	start();
+})();

@@ -1,17 +1,23 @@
+// Chathuram brand colours (sampled from the logo)
+$brand-orange: #f1592a;
+$brand-gray: #858689;
+$brand-black: #000;
+
 // Color Variables
-$primary-color: #ffbc3b;
-$secondary-color: #1a1a37;
-$text-color: #5c5c77;
-$text-color-light: #8585a4;
-$text-color-dark: #1e1e4b;
+$primary-color: $brand-orange;
+$secondary-color: #111111;
+$text-color: #4a4a4d;
+$text-color-light: #a5a6a9;
+$text-color-dark: $brand-black;
 $body-color: #fff;
-$border-color: #ededf1;
+$border-color: #e8e6e3;
+$border-color-dark: #d6d3cf;
 $black: #000;
 $white: #fff;
-$light: #f8f9fe;
-$gray: #f8f8f8;
+$light: #faf7f4;
+$gray: #f6f3ef;
 
 // Font Variables
-$primary-font: 'Poppins', sans-serif;
-$secondary-font: 'Montserrat', sans-serif;
+$primary-font: 'Source Sans 3', 'Segoe UI', sans-serif;
+$secondary-font: 'Source Sans 3', 'Segoe UI', sans-serif;
 $icon-font: 'themify';
