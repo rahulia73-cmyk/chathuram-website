@@ -1,0 +1,144 @@
+/* scroll rail: a strip of slanted squares down the left edge.
+   Only shown where there is room beside the content. */
+.scroll-rail {
+  display: none;
+  position: fixed;
+  left: 18px;
+  top: 150px;
+  bottom: 40px;
+  width: 64px;
+  z-index: 5;
+  pointer-events: none;
+  background: $white;
+  border: 1px solid $border-color;
+  border-radius: 32px;
+  box-shadow: 0 4px 18px rgba($black, .08);
+
+  @media (min-width: 1320px) {
+    display: block;
+  }
+
+  &-track {
+    position: absolute;
+    inset: 64px 0 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    // a faint line joining the squares
+    &::before {
+      content: "";
+      position: absolute;
+      top: 6px;
+      bottom: 6px;
+      left: 50%;
+      border-left: 2px dashed $border-color-dark;
+    }
+  }
+
+  &-tile {
+    position: relative;
+    display: block;
+    width: 36px;
+    height: 13px;
+    background: $black;
+    transform: skewX(-38deg) rotate(-12deg);
+    transition: background-color .3s ease, opacity .3s ease;
+
+    &.is-visited {
+      background: $brand-gray;
+      opacity: .45;
+    }
+
+    &.is-current {
+      background: $primary-color;
+    }
+  }
+
+  &-piece {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 0;
+    transition: transform .45s cubic-bezier(.45, 0, .3, 1);
+    will-change: transform;
+  }
+
+  &-spin {
+    position: absolute;
+    bottom: 0;
+    left: -30px;
+    width: 60px;
+    height: 56px;
+    transform-origin: 50% 60%;
+
+    img {
+      display: none;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 60px;
+      height: auto;
+
+      &.is-current {
+        display: block;
+      }
+    }
+
+    &.is-hopping {
+      animation: rail-hop .55s ease-in-out;
+    }
+
+    &.is-promoting {
+      animation: rail-promote .8s ease-in-out;
+    }
+  }
+}
+
+@keyframes rail-hop {
+  0% {
+    transform: none;
+  }
+
+  20% {
+    transform: scale(1.12, .85);
+  }
+
+  50% {
+    transform: translateY(-16px) rotate(180deg);
+  }
+
+  85% {
+    transform: rotate(360deg) scale(1.08, .9);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rail-promote {
+  0% {
+    transform: none;
+  }
+
+  50% {
+    transform: translateY(-26px) rotate(360deg) scale(1.15);
+  }
+
+  100% {
+    transform: rotate(720deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-rail-piece {
+    transition: none;
+  }
+
+  .scroll-rail-spin.is-hopping,
+  .scroll-rail-spin.is-promoting {
+    animation: none;
+  }
+}

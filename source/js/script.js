@@ -45,9 +45,88 @@
 
 })(jQuery);
 
+// Scroll rail: the pawn hops down a strip of squares as the page scrolls,
+// and becomes a queen when it reaches the last square.
+(function () {
+	'use strict';
+
+	var rail = document.querySelector('[data-scroll-rail]');
+	if (!rail) {
+		return;
+	}
+
+	var tiles = Array.prototype.slice.call(rail.querySelectorAll('.scroll-rail-tile'));
+	var piece = rail.querySelector('.scroll-rail-piece');
+	var spinner = rail.querySelector('.scroll-rail-spin');
+	var imgs = Array.prototype.slice.call(spinner.querySelectorAll('img'));
+	var last = tiles.length - 1;
+	var current = -1;
+	var queued = false;
+
+	var show = function (name) {
+		imgs.forEach(function (img) {
+			img.classList.toggle('is-current', img.getAttribute('data-piece') === name);
+		});
+	};
+	var replay = function (cls) {
+		spinner.classList.remove('is-hopping', 'is-promoting');
+		// restart the CSS animation
+		spinner.getBoundingClientRect();
+		spinner.classList.add(cls);
+	};
+
+	var update = function () {
+		queued = false;
+		// hidden on narrower screens
+		if (rail.offsetWidth === 0) {
+			return;
+		}
+		var max = document.documentElement.scrollHeight - window.innerHeight;
+		var progress = max > 0 ? Math.min(1, Math.max(0, window.pageYOffset / max)) : 0;
+		var index = Math.round(progress * last);
+		var tile = tiles[index];
+		// stand the piece on the middle of its square
+		var y = tile.offsetTop + tile.parentNode.offsetTop + tile.offsetHeight / 2;
+		piece.style.transform = 'translateY(' + y + 'px)';
+
+		if (index === current) {
+			return;
+		}
+		var first = current === -1;
+		tiles.forEach(function (t, i) {
+			t.classList.toggle('is-visited', i < index);
+			t.classList.toggle('is-current', i === index);
+		});
+		if (index === last) {
+			show('queen');
+			if (!first) {
+				replay('is-promoting');
+			}
+		} else {
+			show('pawn');
+			if (!first) {
+				replay('is-hopping');
+			}
+		}
+		current = index;
+	};
+
+	var request = function () {
+		if (!queued) {
+			queued = true;
+			window.requestAnimationFrame(update);
+		}
+	};
+
+	window.addEventListener('scroll', request, { passive: true });
+	window.addEventListener('resize', request);
+	window.addEventListener('load', request);
+	update();
+})();
+
 // Pawn path: the mascot spin-jumps up one slanted square per level,
 // from 01 Beginner to 08 Grand Master. On the last square it promotes,
-// spinning into a queen, knight, rook and bishop: every pawn can become more.
+// spinning into a queen, knight, rook and bishop: every pawn can be more.
 (function () {
 	'use strict';
 
