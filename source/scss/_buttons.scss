@@ -1,4 +1,4 @@
-/* Button style */
+/* Button style: flat, square, no hover animation */
 .btn {
   font-size: 16px;
   font-family: $primary-font;
@@ -6,127 +6,63 @@
   font-weight: 700;
   padding: 15px 40px;
   border-radius: 0;
-  font-weight: 500;
-  border: 0;
-  position: relative;
-  z-index: 1;
-  transition: .2s ease;
-  overflow: hidden;
+  border: 2px solid transparent;
   white-space: nowrap;
+  transition: none;
 
-  &::before {
-    position: absolute;
-    content: "";
-    height: 80%;
-    width: 100%;
-    left: 0;
-    bottom: 10%;
-    z-index: -1;
-    transition: transform .2s ease-in-out;
-    transform-origin: top;
-    transform: scaleY(0);
-  }
-
-  &:active,
-  &:hover,
-  &.focus,
   &:focus,
-  &.active {
-    outline: 0;
+  &.focus,
+  &:active {
     box-shadow: none !important;
-
-    &::before {
-      transform: scaleY(1);
-      transform-origin: bottom;
-    }
   }
 }
 
 .btn-sm {
   font-size: 14px;
-  padding: 10px 35px;
-}
-
-.btn-xs {
-  font-size: 12px;
-  padding: 5px 15px;
+  padding: 10px 30px;
 }
 
 .btn-primary {
   color: $white;
   background-color: $primary-color;
+  border-color: $primary-color;
 
-  &::before {
-    background-color: $white;
-  }
-
-  &:active,
   &:hover,
-  &.focus,
   &:focus,
-  &.active {
-    color: $primary-color !important;
-    background-color: darken($color: $primary-color, $amount: 10) !important;
-    border-color: darken($color: $primary-color, $amount: 10) !important;
+  &:active,
+  &:not(:disabled):not(.disabled):active {
+    color: $white;
+    background-color: $black;
+    border-color: $black;
   }
 }
 
-.btn-outline-primary {
-  color: $primary-color;
+.btn-outline-dark {
+  color: $black;
   background-color: transparent;
-  border: 1px solid $primary-color;
+  border-color: $black;
 
-  &::before {
-    background-color: $white;
-  }
-
-  &:active,
   &:hover,
-  &.focus,
   &:focus,
-  &.active {
-    color: $primary-color !important;
-    background-color: $primary-color !important;
-    border-color: $primary-color !important;
+  &:active,
+  &:not(:disabled):not(.disabled):active {
+    color: $white;
+    background-color: $black;
+    border-color: $black;
   }
 }
 
 .btn-light {
-  color: $primary-color;
-  background-color: $white;
-  border: 1px solid $white;
-
-  &::before {
-    background-color: $primary-color;
-  }
-
-  &:active,
-  &:hover,
-  &.focus,
-  &:focus,
-  &.active {
-    color: $white !important;
-    background-color: $white !important;
-    border: 1px solid $white !important;
-  }
-}
-.btn-outline-dark {
   color: $black;
-  background-color: transparent;
-  border: 2px solid $black;
-  padding: 13px 38px;
+  background-color: $white;
+  border-color: $white;
 
-  &::before {
-    background-color: $black;
-  }
-
-  &:active,
   &:hover,
-  &.focus,
   &:focus,
-  &.active {
-    color: $white !important;
-    background-color: $black !important;
-    border-color: $black !important;
+  &:active,
+  &:not(:disabled):not(.disabled):active {
+    color: $white;
+    background-color: $black;
+    border-color: $black;
   }
 }

@@ -29,7 +29,6 @@ a,
 button,
 select {
   cursor: pointer;
-  transition: .2s ease;
 
   &:focus {
     outline: 0;
@@ -48,9 +47,6 @@ a.text-light:hover {
   color: $primary-color!important;
 }
 
-h4{
-  transition: .2s ease;
-}
 a h4{
   &:hover{
     color: $primary-color;
@@ -241,26 +237,6 @@ a h4{
   }
 }
 
-.custom-breadcrumb {
-  li {
-    &.nasted {
-      position: relative;
-      padding-left: 25px;
-
-      &::before {
-        position: absolute;
-        font-family: $icon-font;
-        content: "\e649";
-        font-size: 20px;
-        top: 50%;
-        left: -5px;
-        color: $white;
-        transform: translateY(-50%);
-      }
-    }
-  }
-}
-
 /* /page title */
 
 .list-styled{
@@ -271,12 +247,12 @@ a h4{
     &::before{
       position: absolute;
       content: "";
-      height: 10px;
-      width: 10px;
-      border-radius: 50%;
+      height: 8px;
+      width: 14px;
       background: $primary-color;
-      left: -25px;
-      top: 5px;
+      left: -26px;
+      top: 9px;
+      transform: skewX(-38deg) rotate(-12deg);
     }
   }
 }

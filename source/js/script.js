@@ -162,7 +162,6 @@
 	var tiles = Array.prototype.slice.call(root.querySelectorAll('.pp-tile'));
 	var pawn = root.querySelector('.pp-pawn');
 	var spin = root.querySelector('.pp-spin');
-	var glow = root.querySelector('.pp-glow');
 	var toggle = root.querySelector('.pawn-path-toggle');
 	var captionLevel = root.querySelector('.pp-caption-level');
 	var captionName = root.querySelector('.pp-caption-name');
@@ -202,15 +201,6 @@
 		tiles.forEach(function (t) {
 			t.classList.remove('is-target', 'is-visited');
 		});
-	};
-	var sparkle = function () {
-		var p = pos(last);
-		glow.setAttribute('cx', p.x);
-		glow.setAttribute('cy', p.y);
-		root.classList.remove('is-promoted');
-		// restart the CSS animation
-		glow.getBoundingClientRect();
-		root.classList.add('is-promoted');
 	};
 
 	if (reduceMotion) {
@@ -293,7 +283,6 @@
 			caption('Promotion', 'Pawn \u2192 ' + names[piece]);
 		};
 		jump(last, last, { lift: 40, lean: 0, duration: 1200, swapTo: piece, onSwap: onSwap }, function () {
-			sparkle();
 			wait(1100, function () {
 				promote(k + 1);
 			});
@@ -363,8 +352,7 @@
 		toggle.addEventListener('click', function () {
 			paused = !paused;
 			toggle.setAttribute('aria-pressed', String(paused));
-			toggle.querySelector('.sr-only').textContent = paused ? 'Play animation' : 'Pause animation';
-			toggle.querySelector('i').className = paused ? 'ti-control-play' : 'ti-control-pause';
+			toggle.querySelector('.pawn-path-toggle-label').textContent = paused ? 'Play' : 'Pause';
 			if (paused) {
 				stop();
 			} else {
