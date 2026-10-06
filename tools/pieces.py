@@ -27,7 +27,8 @@ PIECES = {
     },
     "bishop": {
         "head": '<circle cx="150" cy="40" r="17"/><path d="M150 62 C208 100 220 160 188 206 L112 206 C80 160 92 100 150 62 Z"/>',
-        "cuts": ['<path d="M128 112 L186 152" fill="none" stroke-width="9" stroke-linecap="round"/>'],
+        "cuts": ['<path d="M202 96 L174 118" fill="none" stroke-width="7" stroke-linecap="round"/>',
+                 '<path d="M166 154 q24 10 54 2" fill="none" stroke-width="7" stroke-linecap="round"/>'],
         "collar": "M95 220 Q150 196 205 220 L207 248 Q150 226 93 248 Z",
         "body": "M112 262 Q150 252 188 262 Q205 370 250 490 L50 490 Q95 370 112 262 Z",
         "base": "M-60 524 Q20 496 78 470 Q100 430 150 424 Q200 430 222 470 Q280 496 360 524 Q150 500 -60 524 Z",

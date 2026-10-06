@@ -186,52 +186,6 @@
   font-size: 15px;
 }
 
-/* pricing */
-.price-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding: 40px 32px;
-  border: 2px solid $black;
-  background: $white;
-
-  &-featured {
-    border-color: $primary-color;
-    box-shadow: 10px 10px 0 $primary-color;
-  }
-
-  .btn {
-    align-self: flex-start;
-  }
-}
-
-.price {
-  margin: 12px 0 24px;
-
-  &-amount {
-    font-size: 44px;
-    font-weight: 800;
-    color: $black;
-  }
-
-  &-unit {
-    color: $brand-gray;
-  }
-}
-
-.price-badge {
-  position: absolute;
-  top: -15px;
-  left: 32px;
-  background: $primary-color;
-  color: $white;
-  font-weight: 700;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  padding: 4px 12px;
-}
-
 .faq-item {
   padding: 22px 0;
   border-bottom: 1px solid $border-color-dark;
@@ -285,6 +239,16 @@
 
   strong {
     color: $black;
+  }
+
+  a {
+    color: $black;
+    text-decoration: underline;
+    text-decoration-color: $primary-color;
+
+    &:hover {
+      color: $primary-color;
+    }
   }
 }
 
@@ -362,43 +326,35 @@
 @keyframes piece-wave {
   0%,
   100% {
-    transform: rotate(-10deg);
+    transform: rotate(-4deg);
   }
 
   50% {
-    transform: rotate(10deg);
+    transform: rotate(4deg);
   }
 }
 
-@keyframes piece-happy-spin {
-  0% {
+@keyframes piece-happy-hop {
+  0%,
+  100% {
     translate: 0 0;
     rotate: 0deg;
   }
 
-  15% {
-    translate: 0 0;
-    scale: 1.1 .85;
+  20% {
+    scale: 1.04 .95;
   }
 
-  55% {
-    translate: 0 -40px;
+  50% {
+    translate: 0 -18px;
+    rotate: 5deg;
     scale: 1;
   }
 
   85% {
     translate: 0 0;
-    rotate: 360deg;
-  }
-
-  92% {
-    scale: 1.08 .9;
-  }
-
-  100% {
-    translate: 0 0;
-    rotate: 360deg;
-    scale: 1;
+    rotate: 0deg;
+    scale: 1.03 .97;
   }
 }
 
@@ -442,7 +398,7 @@
   transform-origin: 50% 70%;
 
   .piece-item:hover & {
-    animation: piece-happy-spin .9s ease-in-out;
+    animation: piece-happy-hop 1.1s ease-in-out;
   }
 }
 
@@ -562,4 +518,25 @@
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+}
+
+/* why chess */
+.benefit-piece {
+  height: 70px;
+  width: auto;
+  margin-bottom: 20px;
+}
+
+.benefit-card .tile-icon {
+  margin-top: 30px;
+  margin-bottom: 34px;
+}
+
+.why-list li {
+  font-size: 18px;
+  line-height: 1.6;
+
+  strong {
+    color: $black;
+  }
 }
