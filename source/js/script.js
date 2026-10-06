@@ -18,33 +18,35 @@
 	// Current year in footer
 	$('[data-year]').text(new Date().getFullYear());
 
-	// Contact form: no server on GitHub Pages, so compose an email instead
-	$('[data-mailto-form]').on('submit', function (e) {
+	// Contact form: no server on GitHub Pages, so send the details as a WhatsApp message
+	$('[data-whatsapp-form]').on('submit', function (e) {
 		e.preventDefault();
 		var form = this;
-		var to = $(form).data('mailto-form');
+		var number = String($(form).data('whatsapp-form'));
 		var get = function (name) {
 			var field = form.elements[name];
 			return field ? $.trim(field.value) : '';
 		};
-		var subject = 'Trial class enquiry: ' + (get('program') || 'Chathuram Chess Academy');
-		var body = [
-			'Name: ' + get('name'),
-			'Email: ' + get('email'),
-			'Phone: ' + get('phone'),
-			'Student age: ' + get('age'),
-			'Program: ' + get('program'),
-			'Mode: ' + get('mode'),
+		var lines = [
+			'Hello Chathuram Chess Academy, I would like to know more about your classes.',
 			'',
-			get('message')
-		].join('\n');
-		window.location.href = 'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+			'Name: ' + get('name'),
+			'Phone: ' + get('phone'),
+			'City: ' + get('city'),
+			'Student age: ' + get('age'),
+			'Level: ' + get('program'),
+			'Mode: ' + get('mode')
+		];
+		if (get('message')) {
+			lines.push('', get('message'));
+		}
+		window.open('https://wa.me/' + number + '?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
 	});
 
 })(jQuery);
 
-// Pawn path: the mascot climbs the slanted squares from rank 2 to rank 8.
-// A pawn may move two squares on its first move, then one at a time.
+// Pawn path: the mascot climbs one slanted square per level,
+// from 01 Beginner to 08 Grand Master.
 (function () {
 	'use strict';
 
@@ -57,6 +59,8 @@
 	var pawn = root.querySelector('.pp-pawn');
 	var glow = root.querySelector('.pp-glow');
 	var toggle = root.querySelector('.pawn-path-toggle');
+	var captionLevel = root.querySelector('.pp-caption-level');
+	var captionName = root.querySelector('.pp-caption-name');
 	var last = tiles.length - 1;
 	var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -66,6 +70,10 @@
 	var place = function (i) {
 		var p = pos(i);
 		pawn.style.transform = 'translate(' + p.x + 'px, ' + p.y + 'px)';
+		if (captionLevel) {
+			captionLevel.textContent = 'Level ' + tiles[i].getAttribute('data-level');
+			captionName.textContent = tiles[i].getAttribute('data-name');
+		}
 	};
 	var clear = function () {
 		tiles.forEach(function (t) {
@@ -133,16 +141,16 @@
 			});
 			return;
 		}
-		var next = current === 0 ? 2 : current + 1;
+		var next = current + 1;
 		tiles[next].classList.add('is-target');
-		wait(450, function () {
+		wait(350, function () {
 			hop(current, next, function () {
 				for (var i = 0; i < next; i++) {
 					tiles[i].classList.add('is-visited');
 				}
 				tiles[next].classList.remove('is-target');
 				current = next;
-				wait(current === last ? 200 : 650, step);
+				wait(current === last ? 200 : 550, step);
 			});
 		});
 	};

@@ -1,15 +1,15 @@
-@@include('header.htm', {"title": "Contact | Chathuram Chess Academy", "description": "Book a free trial chess class at Chathuram Chess Academy, in Hyderabad or online."})
+@@include('header.htm', {"title": "Contact | Chathuram Chess Academy", "description": "Contact Chathuram Chess Academy on WhatsApp or phone about chess classes in Hyderabad and online."})
 
 @@include('blocks/navigation.htm', {"contact": "active"})
 
-@@include('blocks/page-title.htm', {"eyebrow": "Contact", "heading": "Book a free trial class.", "intro": "Tell us a little about the student and we'll get back to you to schedule a trial class and level assessment."})
+@@include('blocks/page-title.htm', {"eyebrow": "Contact", "heading": "Let's find your level.", "intro": "Tell us a little about the student and we'll get back to you about the right level, class timings and fees."})
 
 <!-- contact -->
 <section class="section bg-gray">
   <div class="container">
     <div class="row">
       <div class="col-lg-7 mb-5 mb-lg-0">
-        <form class="contact-form" data-mailto-form="@@email">
+        <form class="contact-form" data-whatsapp-form="@@whatsappLink">
           <div class="form-row">
             <div class="col-md-6 mb-3">
               <label for="name">Your name</label>
@@ -20,8 +20,8 @@
               <input type="tel" class="form-control" id="phone" name="phone" autocomplete="tel" required>
             </div>
             <div class="col-md-6 mb-3">
-              <label for="email">Email</label>
-              <input type="email" class="form-control" id="email" name="email" autocomplete="email">
+              <label for="city">City</label>
+              <input type="text" class="form-control" id="city" name="city" autocomplete="address-level2">
             </div>
             <div class="col-md-6 mb-3">
               <label for="age">Student's age</label>
@@ -31,10 +31,14 @@
               <label for="program">Program</label>
               <select class="form-control" id="program" name="program">
                 <option>Not sure yet</option>
-                <option>Beginner</option>
-                <option>Intermediate</option>
-                <option>Advanced</option>
-                <option>Private coaching</option>
+                <option>Level 01: Beginner Level</option>
+                <option>Level 02: Advanced Beginner</option>
+                <option>Level 03: Intermediate Level 1</option>
+                <option>Level 04: Intermediate Level 2</option>
+                <option>Level 05: Advanced Level 1</option>
+                <option>Level 06: Advanced Level 2</option>
+                <option>Level 07: Master Level</option>
+                <option>Level 08: Grand Master Level</option>
               </select>
             </div>
             <div class="col-md-6 mb-3">
@@ -49,28 +53,23 @@
               <textarea class="form-control" id="message" name="message"></textarea>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">Send enquiry</button>
-          <p class="small text-color mt-3 mb-0">This opens your email app with your details filled in.</p>
+          <button type="submit" class="btn btn-primary"><i class="ti-comment-alt mr-2" aria-hidden="true"></i>Send on WhatsApp</button>
+          <p class="small text-color mt-3 mb-0">This opens WhatsApp with your details filled in, ready to send.</p>
         </form>
       </div>
       <div class="col-lg-5">
         <div class="contact-card">
           <h2 class="h4 mb-4">Reach us directly</h2>
-          <a href="https://wa.me/@@whatsappLink" class="contact-line"><i class="ti-comment-alt" aria-hidden="true"></i><span><strong>WhatsApp</strong><br>@@phone</span></a>
-          <a href="tel:@@phoneLink" class="contact-line"><i class="ti-mobile" aria-hidden="true"></i><span><strong>Call</strong><br>@@phone</span></a>
-          <a href="mailto:@@email" class="contact-line"><i class="ti-email" aria-hidden="true"></i><span><strong>Email</strong><br>@@email</span></a>
-          <p class="contact-line mb-0"><i class="ti-location-pin" aria-hidden="true"></i><span><strong>Hyderabad centre</strong><br>@@addressLine1<br>@@addressLine2</span></p>
+          <a href="https://wa.me/@@whatsappLink" class="contact-line"><i class="ti-comment-alt" aria-hidden="true"></i><span><strong>WhatsApp</strong><br>@@whatsapp</span></a>
+          <a href="tel:@@phoneIndiaLink" class="contact-line"><i class="ti-mobile" aria-hidden="true"></i><span><strong>India (Hyderabad)</strong><br>@@phoneIndia</span></a>
+          <a href="tel:@@phoneUSLink" class="contact-line"><i class="ti-mobile" aria-hidden="true"></i><span><strong>USA (Chicago)</strong><br>@@phoneUS</span></a>
+          <p class="contact-line mb-0"><i class="ti-location-pin" aria-hidden="true"></i><span><strong>Classes</strong><br>In person in Hyderabad, and online</span></p>
         </div>
       </div>
     </div>
   </div>
 </section>
 <!-- /contact -->
-
-<!-- map -->
-<iframe class="map-embed" title="Map of our Hyderabad centre" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-  src="https://www.google.com/maps?q=@@mapQuery&amp;output=embed"></iframe>
-<!-- /map -->
 
 @@include('blocks/footer.htm')
 

@@ -84,3 +84,21 @@
     transform: scale(1.8);
   }
 }
+
+.pawn-path-caption {
+  margin: 8px 0 0;
+  text-align: center;
+  font-weight: 700;
+  color: $black;
+  min-height: 1.7em;
+
+  .pp-caption-level {
+    color: $white;
+    background: $primary-color;
+    padding: 2px 8px;
+    margin-right: 6px;
+    font-size: 14px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+}
