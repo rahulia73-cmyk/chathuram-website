@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-130 0 520 540" role="img" aria-label="Chathuram rook mascot">
+  <title>Chathuram rook mascot</title>
+  <defs><mask id="d-rook-h" maskUnits="userSpaceOnUse" x="-200" y="-40" width="700" height="620"><rect x="-200" y="-40" width="700" height="620" fill="#fff"/><path stroke="#000" d="M160 136 q18 8 40 1" fill="none" stroke-width="8" stroke-linecap="round"/></mask><mask id="d-rook-b" maskUnits="userSpaceOnUse" x="-200" y="-40" width="700" height="620"><rect x="-200" y="-40" width="700" height="620" fill="#fff"/><path d="M36 448 H264 V512 H36 Z" fill="#000" stroke="#000" stroke-width="12" stroke-linejoin="round"/></mask></defs>
+  <g fill="#000" mask="url(#d-rook-h)"><path d="M82 58 H114 V84 H134 V58 H166 V84 H186 V58 H218 V182 H82 Z"/></g><path d="M76 194 H224 V222 H76 Z" fill="#f1592a"/><path d="M98 238 H202 L216 490 H84 Z" fill="#000" mask="url(#d-rook-b)"/><path d="M36 448 H264 V512 H36 Z" fill="#000"/>
+</svg>

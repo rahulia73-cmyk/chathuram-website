@@ -229,12 +229,11 @@ a h4{
     padding: 150px 0 60px;
   }
 
-  .page-title-pawn {
+  .page-title-piece {
     position: absolute;
     right: 8%;
-    bottom: -10px;
-    height: 220px;
-    opacity: .9;
+    bottom: 10px;
+    height: 230px;
 
     @include tablet {
       display: none;

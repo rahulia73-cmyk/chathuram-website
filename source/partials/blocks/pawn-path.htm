@@ -1,17 +1,7 @@
 <!-- pawn path animation: the pawn climbs one slanted square per level, 01 Beginner to 08 Grand Master -->
 <div class="pawn-path" data-pawn-path>
   <svg class="pawn-path-svg" viewBox="0 0 600 690" role="img" aria-labelledby="pp-title">
-    <title id="pp-title">The Chathuram pawn stepping up eight squares, one for each level from Beginner to Grand Master</title>
-    <defs>
-      <mask id="pp-head" maskUnits="userSpaceOnUse" x="0" y="0" width="290" height="520">
-        <rect width="290" height="520" fill="#fff"/>
-        <path d="M174 102 q24 10 52 2" fill="none" stroke="#000" stroke-width="7" stroke-linecap="round"/>
-      </mask>
-      <mask id="pp-body" maskUnits="userSpaceOnUse" x="0" y="0" width="290" height="520">
-        <rect width="290" height="520" fill="#fff"/>
-        <path d="M20 508 Q22 452 80 432 Q172 416 250 468 Q268 488 268 508 Z" stroke="#000" stroke-width="12" stroke-linejoin="round"/>
-      </mask>
-    </defs>
+    <title id="pp-title">The Chathuram pawn spinning up eight squares, one for each level from Beginner to Grand Master, then promoting to a queen, knight, rook and bishop</title>
     <g class="pp-ranks" aria-hidden="true">
       <text class="pp-rank" x="48" y="656">01</text>
       <text class="pp-rank" x="100" y="590">02</text>
@@ -33,14 +23,7 @@
       <polygon class="pp-tile" data-level="08" data-name="Grand Master Level" data-x="493" data-y="184.5" points="424,188 474,170 562,181 512,199"/>
     </g>
     <ellipse class="pp-glow" cx="0" cy="0" rx="74" ry="20"/>
-    <g class="pp-pawn">
-      <g transform="translate(-44.6 -157.5) scale(0.31)">
-        <circle cx="150" cy="95" r="72" mask="url(#pp-head)"/>
-        <path class="pp-collar" d="M88 198 Q150 166 216 182 L218 214 Q150 200 92 228 Z"/>
-        <path d="M110 242 Q160 230 206 242 Q212 350 236 452 L58 420 Q100 340 110 242 Z" mask="url(#pp-body)"/>
-        <path d="M20 508 Q22 452 80 432 Q172 416 250 468 Q268 488 268 508 Z"/>
-      </g>
-    </g>
+@@include('blocks/pp-pieces.htm')
   </svg>
   <p class="pawn-path-caption" aria-hidden="true"><span class="pp-caption-level">Level 01</span> <span class="pp-caption-name">Beginner Level</span></p>
   <button type="button" class="pawn-path-toggle" aria-pressed="false" hidden>

@@ -321,3 +321,185 @@
   max-width: 420px;
   width: 100%;
 }
+
+/* mascot poses: the pieces lean, turn round and bob like characters */
+.pose-tilt {
+  transform: rotate(-8deg);
+}
+
+.pose-tilt-back {
+  transform: rotate(9deg);
+}
+
+.pose-flip {
+  transform: scaleX(-1) rotate(-6deg);
+}
+
+.pose-wave {
+  transform-origin: 50% 90%;
+  animation: piece-wave 2.6s ease-in-out infinite;
+}
+
+.page-title-piece {
+  &.pose-tilt,
+  &.pose-tilt-back,
+  &.pose-flip {
+    animation: piece-bob 3s ease-in-out infinite;
+  }
+}
+
+@keyframes piece-bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -12px;
+  }
+}
+
+@keyframes piece-wave {
+  0%,
+  100% {
+    transform: rotate(-10deg);
+  }
+
+  50% {
+    transform: rotate(10deg);
+  }
+}
+
+@keyframes piece-happy-spin {
+  0% {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+
+  15% {
+    translate: 0 0;
+    scale: 1.1 .85;
+  }
+
+  55% {
+    translate: 0 -40px;
+    scale: 1;
+  }
+
+  85% {
+    translate: 0 0;
+    rotate: 360deg;
+  }
+
+  92% {
+    scale: 1.08 .9;
+  }
+
+  100% {
+    translate: 0 0;
+    rotate: 360deg;
+    scale: 1;
+  }
+}
+
+/* hero */
+.hero-note {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  font-weight: 600;
+  color: $black;
+  font-size: 16px;
+  margin: 8px 0 0;
+}
+
+/* meet the pieces */
+.pieces-lineup {
+  align-items: flex-start;
+}
+
+.piece-item {
+  text-align: center;
+
+  p {
+    font-size: 15px;
+    line-height: 1.5;
+
+    strong {
+      display: block;
+      color: $black;
+      margin-top: 4px;
+    }
+  }
+}
+
+.piece-img {
+  height: 170px;
+  width: auto;
+  max-width: 100%;
+  margin-bottom: 18px;
+  cursor: pointer;
+  transform-origin: 50% 70%;
+
+  .piece-item:hover & {
+    animation: piece-happy-spin .9s ease-in-out;
+  }
+}
+
+/* coaches */
+.coaches-squad {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0;
+
+  img {
+    height: 230px;
+    width: auto;
+    margin: 0 -30px;
+
+    &:nth-child(2) {
+      height: 280px;
+      position: relative;
+      z-index: 1;
+    }
+
+    @include mobile {
+      height: 150px;
+
+      &:nth-child(2) {
+        height: 180px;
+      }
+    }
+  }
+}
+
+/* cta */
+.cta-section {
+  .container {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.cta-piece {
+  position: absolute;
+  left: -40px;
+  bottom: -50px;
+  height: 260px;
+  opacity: .14;
+  transform: rotate(18deg);
+  pointer-events: none;
+
+  @include desktop {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pose-wave,
+  .page-title-piece,
+  .piece-item:hover .piece-img {
+    animation: none !important;
+  }
+}

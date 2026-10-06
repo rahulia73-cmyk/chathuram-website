@@ -33,13 +33,19 @@
     text-anchor: end;
   }
 
-  .pp-pawn {
-    fill: $black;
+  .pp-pawn,
+  .pp-spin {
+    color: $black;
+    transform-origin: 0 0;
     will-change: transform;
   }
 
-  .pp-collar {
-    fill: $primary-color;
+  .pp-piece {
+    display: none;
+
+    &.is-current {
+      display: inline;
+    }
   }
 
   .pp-glow {

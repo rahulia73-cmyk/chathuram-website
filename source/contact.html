@@ -2,7 +2,7 @@
 
 @@include('blocks/navigation.htm', {"contact": "active"})
 
-@@include('blocks/page-title.htm', {"eyebrow": "Contact", "heading": "Let's find your level.", "intro": "Tell us a little about the student and we'll get back to you about the right level, class timings and fees."})
+@@include('blocks/page-title.htm', {"piece": "pawn", "pose": "wave", "eyebrow": "Contact", "heading": "Let's find your level.", "intro": "Your first class is a free trial. Tell us a little about the student and we'll get back to you about the right level, class timings and fees."})
 
 <!-- contact -->
 <section class="section bg-gray">
@@ -42,10 +42,12 @@
               </select>
             </div>
             <div class="col-md-6 mb-3">
-              <label for="mode">Mode</label>
+              <label for="mode">Class type</label>
               <select class="form-control" id="mode" name="mode">
-                <option>In person, Hyderabad</option>
-                <option>Online</option>
+                <option>Small batch, in person (Hyderabad)</option>
+                <option>Small batch, online</option>
+                <option>One-on-one, in person (Hyderabad)</option>
+                <option>One-on-one, online</option>
               </select>
             </div>
             <div class="col-12 mb-3">
@@ -63,7 +65,8 @@
           <a href="https://wa.me/@@whatsappLink" class="contact-line"><i class="ti-comment-alt" aria-hidden="true"></i><span><strong>WhatsApp</strong><br>@@whatsapp</span></a>
           <a href="tel:@@phoneIndiaLink" class="contact-line"><i class="ti-mobile" aria-hidden="true"></i><span><strong>India (Hyderabad)</strong><br>@@phoneIndia</span></a>
           <a href="tel:@@phoneUSLink" class="contact-line"><i class="ti-mobile" aria-hidden="true"></i><span><strong>USA (Chicago)</strong><br>@@phoneUS</span></a>
-          <p class="contact-line mb-0"><i class="ti-location-pin" aria-hidden="true"></i><span><strong>Classes</strong><br>In person in Hyderabad, and online</span></p>
+          <a href="mailto:@@email" class="contact-line"><i class="ti-email" aria-hidden="true"></i><span><strong>Email</strong><br>@@email</span></a>
+          <p class="contact-line mb-0"><i class="ti-location-pin" aria-hidden="true"></i><span><strong>Classes</strong><br>In person in Hyderabad, and online. Students in the USA learn online.</span></p>
         </div>
       </div>
     </div>

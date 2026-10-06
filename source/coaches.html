@@ -2,14 +2,18 @@
 
 @@include('blocks/navigation.htm', {"coaches": "active"})
 
-@@include('blocks/page-title.htm', {"eyebrow": "Coaches", "heading": "Taught by FIDE-rated tutors.", "intro": "Every Chathuram class is led by a FIDE-rated chess tutor, at every level from Beginner to Grand Master."})
+@@include('blocks/page-title.htm', {"piece": "king", "pose": "tilt", "eyebrow": "Coaches", "heading": "Taught by FIDE-rated tutors.", "intro": "Every Chathuram class is led by a FIDE-rated chess tutor, at every level from Beginner to Grand Master."})
 
 <!-- coaches -->
 <section class="section">
   <div class="container">
     <div class="row align-items-center">
       <div class="col-lg-5 mb-5 mb-lg-0 text-center">
-        <img class="img-fluid coaches-mascot" src="images/brand/mascot.svg" alt="">
+        <div class="coaches-squad" aria-hidden="true">
+          <img class="pose-tilt-back" src="images/brand/pieces/knight.svg" alt="">
+          <img src="images/brand/pieces/king.svg" alt="">
+          <img class="pose-flip" src="images/brand/pieces/pawn.svg" alt="">
+        </div>
       </div>
       <div class="col-lg-6 offset-lg-1">
         <p class="eyebrow">Our tutors</p>
@@ -36,7 +40,7 @@
         <div class="feature-card h-100">
           <span class="tile-icon" aria-hidden="true"></span>
           <h3 class="h4">In person &amp; online</h3>
-          <p class="mb-0">Our tutors teach in Hyderabad and live online, so students anywhere can learn with them.</p>
+          <p class="mb-0">Small batch and one-on-one classes, in person in Hyderabad and live online.</p>
         </div>
       </div>
     </div>
