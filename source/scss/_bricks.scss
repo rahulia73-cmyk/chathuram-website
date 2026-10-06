@@ -1,0 +1,139 @@
+/* brick layer: studs on top edges and solid brick edges, in the brand colours */
+
+// buttons are small bricks: two studs on top and a thick darker bottom edge
+.btn {
+  position: relative;
+  border-bottom-width: 5px;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: -7px;
+    width: 16px;
+    height: 7px;
+    border-radius: 2px 2px 0 0;
+    background: currentColor;
+    pointer-events: none;
+  }
+
+  &::before {
+    left: 22%;
+  }
+
+  &::after {
+    right: 22%;
+  }
+}
+
+.btn-primary {
+  border-bottom-color: #a8391a;
+
+  &::before,
+  &::after {
+    background: $primary-color;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    border-bottom-color: #333;
+
+    &::before,
+    &::after {
+      background: $black;
+    }
+  }
+}
+
+.btn-outline-dark,
+.btn-light {
+  &::before,
+  &::after {
+    background: $black;
+  }
+}
+
+.btn-light {
+  border-bottom-color: #d9d4cc;
+
+  &::before,
+  &::after {
+    background: $white;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    &::before,
+    &::after {
+      background: $black;
+    }
+  }
+}
+
+// level cards: a stud row on top, like a brick on the board
+.program-card {
+  @include studs("000000", 7px, 14px);
+  border-bottom-width: 6px;
+  margin-top: 7px;
+
+  &:hover,
+  &:focus {
+    &::before {
+      filter: none;
+    }
+  }
+}
+
+// section edges: the orange call to action and the black footer sit like
+// bricks with studs along their top edge
+.cta-section {
+  @include studs("f1592a", 9px, 0);
+  overflow: visible !important;
+
+  &::before {
+    background-size: auto 9px;
+  }
+}
+
+.site-footer {
+  @include studs("000000", 9px, 0);
+}
+
+.contact-card {
+  @include studs("000000", 7px, 14px);
+  border-bottom-width: 6px;
+}
+
+.book-cover {
+  @include studs("000000", 8px, 12px);
+}
+
+// scroll strip squares are tiny bricks: a darker edge underneath and two studs
+.scroll-rail-tile {
+  border-bottom: 4px solid #000;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: -4px;
+    width: 8px;
+    height: 4px;
+    border-radius: 1px 1px 0 0;
+    background: inherit;
+  }
+
+  &::before {
+    left: 6px;
+  }
+
+  &::after {
+    right: 6px;
+  }
+
+  &.is-current {
+    border-bottom-color: #a8391a;
+  }
+}
