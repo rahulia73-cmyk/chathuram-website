@@ -14,6 +14,14 @@
     }
   }
 
+  @include mobile {
+    font-size: 12px;
+
+    .mr-3 {
+      margin-right: .5rem !important;
+    }
+  }
+
   &.hide {
     transform: scaleY(0);
     transform-origin: top;

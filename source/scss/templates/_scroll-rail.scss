@@ -20,7 +20,10 @@
 
   &-track {
     position: absolute;
-    inset: 64px 0 22px;
+    top: 64px;
+    bottom: 22px;
+    left: 0;
+    right: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -140,5 +143,66 @@
   .scroll-rail-spin.is-hopping,
   .scroll-rail-spin.is-promoting {
     animation: none;
+  }
+}
+
+/* the same idea along the bottom of the header, for laptops and phones */
+.scroll-bar {
+  display: block;
+  position: relative;
+  height: 40px;
+  background: $white;
+  border-bottom: 1px solid $border-color;
+
+  @media (min-width: 1320px) {
+    display: none;
+  }
+
+  .scroll-rail-track {
+    position: absolute;
+    left: 15px;
+    right: 15px;
+    top: 26px;
+    height: 10px;
+    flex-direction: row;
+    align-items: center;
+
+    &::before {
+      top: 50%;
+      bottom: auto;
+      left: 6px;
+      right: 6px;
+      border-left: 0;
+      border-top: 2px dashed $border-color-dark;
+    }
+  }
+
+  .scroll-rail-tile {
+    width: 26px;
+    height: 9px;
+  }
+
+  .scroll-rail-piece {
+    top: 32px;
+    left: 0;
+    height: 0;
+    width: 0;
+  }
+
+  .scroll-rail-spin {
+    left: -16px;
+    width: 32px;
+    height: 30px;
+
+    img {
+      width: 32px;
+    }
+  }
+}
+
+// make room for the scroll bar under the fixed header
+@media (max-width: 1319px) {
+  main {
+    padding-top: 40px;
   }
 }

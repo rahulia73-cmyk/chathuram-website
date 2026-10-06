@@ -45,70 +45,80 @@
 
 })(jQuery);
 
-// Scroll rail: the pawn hops down a strip of squares as the page scrolls,
-// and becomes a queen when it reaches the last square.
+// Scroll rails: the pawn hops along a strip of squares as the page scrolls,
+// and becomes a queen on the last square. Wide screens get a strip down the
+// left edge (data-axis="y"); laptops and phones get one under the menu ("x").
 (function () {
 	'use strict';
 
-	var rail = document.querySelector('[data-scroll-rail]');
-	if (!rail) {
+	var rails = Array.prototype.slice.call(document.querySelectorAll('[data-scroll-rail]')).map(function (rail) {
+		var spinner = rail.querySelector('.scroll-rail-spin');
+		return {
+			el: rail,
+			axis: rail.getAttribute('data-axis') === 'x' ? 'x' : 'y',
+			track: rail.querySelector('.scroll-rail-track'),
+			tiles: Array.prototype.slice.call(rail.querySelectorAll('.scroll-rail-tile')),
+			piece: rail.querySelector('.scroll-rail-piece'),
+			spinner: spinner,
+			imgs: Array.prototype.slice.call(spinner.querySelectorAll('img')),
+			current: -1
+		};
+	});
+	if (!rails.length) {
 		return;
 	}
-
-	var tiles = Array.prototype.slice.call(rail.querySelectorAll('.scroll-rail-tile'));
-	var piece = rail.querySelector('.scroll-rail-piece');
-	var spinner = rail.querySelector('.scroll-rail-spin');
-	var imgs = Array.prototype.slice.call(spinner.querySelectorAll('img'));
-	var last = tiles.length - 1;
-	var current = -1;
 	var queued = false;
 
-	var show = function (name) {
-		imgs.forEach(function (img) {
+	var replay = function (rail, cls) {
+		rail.spinner.classList.remove('is-hopping', 'is-promoting');
+		// restart the CSS animation
+		rail.spinner.getBoundingClientRect();
+		rail.spinner.classList.add(cls);
+	};
+
+	var render = function (rail, progress) {
+		// hidden at this screen size
+		if (rail.el.offsetWidth === 0) {
+			rail.current = -1;
+			return;
+		}
+		var last = rail.tiles.length - 1;
+		var index = Math.round(progress * last);
+		var tile = rail.tiles[index];
+		// stand the piece on the middle of its square
+		if (rail.axis === 'x') {
+			var x = rail.track.offsetLeft + tile.offsetLeft + tile.offsetWidth / 2;
+			rail.piece.style.transform = 'translateX(' + x + 'px)';
+		} else {
+			var y = rail.track.offsetTop + tile.offsetTop + tile.offsetHeight / 2;
+			rail.piece.style.transform = 'translateY(' + y + 'px)';
+		}
+
+		if (index === rail.current) {
+			return;
+		}
+		var first = rail.current === -1;
+		rail.tiles.forEach(function (t, i) {
+			t.classList.toggle('is-visited', i < index);
+			t.classList.toggle('is-current', i === index);
+		});
+		var name = index === last ? 'queen' : 'pawn';
+		rail.imgs.forEach(function (img) {
 			img.classList.toggle('is-current', img.getAttribute('data-piece') === name);
 		});
-	};
-	var replay = function (cls) {
-		spinner.classList.remove('is-hopping', 'is-promoting');
-		// restart the CSS animation
-		spinner.getBoundingClientRect();
-		spinner.classList.add(cls);
+		if (!first) {
+			replay(rail, index === last ? 'is-promoting' : 'is-hopping');
+		}
+		rail.current = index;
 	};
 
 	var update = function () {
 		queued = false;
-		// hidden on narrower screens
-		if (rail.offsetWidth === 0) {
-			return;
-		}
 		var max = document.documentElement.scrollHeight - window.innerHeight;
 		var progress = max > 0 ? Math.min(1, Math.max(0, window.pageYOffset / max)) : 0;
-		var index = Math.round(progress * last);
-		var tile = tiles[index];
-		// stand the piece on the middle of its square
-		var y = tile.offsetTop + tile.parentNode.offsetTop + tile.offsetHeight / 2;
-		piece.style.transform = 'translateY(' + y + 'px)';
-
-		if (index === current) {
-			return;
-		}
-		var first = current === -1;
-		tiles.forEach(function (t, i) {
-			t.classList.toggle('is-visited', i < index);
-			t.classList.toggle('is-current', i === index);
+		rails.forEach(function (rail) {
+			render(rail, progress);
 		});
-		if (index === last) {
-			show('queen');
-			if (!first) {
-				replay('is-promoting');
-			}
-		} else {
-			show('pawn');
-			if (!first) {
-				replay('is-hopping');
-			}
-		}
-		current = index;
 	};
 
 	var request = function () {
