@@ -1,0 +1,32 @@
+<!-- pawn path animation: the pawn climbs one slanted square per level, 01 Beginner to 08 Grand Master -->
+<div class="pawn-path" data-pawn-path>
+  <svg class="pawn-path-svg" viewBox="0 0 600 690" role="img" aria-labelledby="pp-title">
+    <title id="pp-title">The Chathuram pawn spinning up eight squares, one for each level from Beginner to Grand Master, then promoting to a queen, knight, rook and bishop</title>
+    <g class="pp-ranks" aria-hidden="true">
+      <text class="pp-rank" x="48" y="656">01</text>
+      <text class="pp-rank" x="100" y="590">02</text>
+      <text class="pp-rank" x="152" y="524">03</text>
+      <text class="pp-rank" x="204" y="458">04</text>
+      <text class="pp-rank" x="256" y="392">05</text>
+      <text class="pp-rank" x="308" y="326">06</text>
+      <text class="pp-rank" x="360" y="260">07</text>
+      <text class="pp-rank" x="412" y="194">08</text>
+    </g>
+    <g class="pp-tiles">
+      <polygon class="pp-tile" data-level="01" data-name="Beginner Level" data-x="129" data-y="646.5" points="60,650 110,632 198,643 148,661"/>
+      <polygon class="pp-tile" data-level="02" data-name="Advanced Beginner" data-x="181" data-y="580.5" points="112,584 162,566 250,577 200,595"/>
+      <polygon class="pp-tile" data-level="03" data-name="Intermediate Level 1" data-x="233" data-y="514.5" points="164,518 214,500 302,511 252,529"/>
+      <polygon class="pp-tile" data-level="04" data-name="Intermediate Level 2" data-x="285" data-y="448.5" points="216,452 266,434 354,445 304,463"/>
+      <polygon class="pp-tile" data-level="05" data-name="Advanced Level 1" data-x="337" data-y="382.5" points="268,386 318,368 406,379 356,397"/>
+      <polygon class="pp-tile" data-level="06" data-name="Advanced Level 2" data-x="389" data-y="316.5" points="320,320 370,302 458,313 408,331"/>
+      <polygon class="pp-tile" data-level="07" data-name="Master Level" data-x="441" data-y="250.5" points="372,254 422,236 510,247 460,265"/>
+      <polygon class="pp-tile" data-level="08" data-name="Grand Master Level" data-x="493" data-y="184.5" points="424,188 474,170 562,181 512,199"/>
+    </g>
+    <ellipse class="pp-glow" cx="0" cy="0" rx="74" ry="20"/>
+@@include('blocks/pp-pieces.htm')
+  </svg>
+  <p class="pawn-path-caption" aria-hidden="true"><span class="pp-caption-level">Level 01</span> <span class="pp-caption-name">Beginner Level</span></p>
+  <button type="button" class="pawn-path-toggle" aria-pressed="false" hidden>
+    <span class="sr-only">Pause animation</span><i class="ti-control-pause" aria-hidden="true"></i>
+  </button>
+</div>

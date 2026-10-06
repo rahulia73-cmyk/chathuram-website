@@ -9,8 +9,8 @@ const fileinclude = require("gulp-file-include");
 const autoprefixer = require("gulp-autoprefixer");
 const bs = require("browser-sync").create();
 const rimraf = require("rimraf");
-const gm = require("gulp-gm");
 const comments = require("gulp-header-comment");
+const fs = require("fs");
 
 var path = {
   src: {
@@ -22,7 +22,6 @@ var path = {
     js: "source/js/*.js",
     scss: "source/scss/**/*.scss",
     images: "source/images/**/*.+(png|jpg|jpeg|gif|svg|webp|ico)",
-    blur: "source/images/**/*.+(jpg|jpeg|webp)",
     fonts: "source/fonts/**/*.+(eot|ttf|woff|woff2|otf)",
     static: "source/static/**/*",
   },
@@ -39,17 +38,14 @@ gulp.task("html", function () {
     .pipe(
       fileinclude({
         basepath: path.src.incdir,
-        context: {
-          version: "premium",
-        },
+        // contact details etc. live in source/site.json
+        context: JSON.parse(fs.readFileSync("source/site.json", "utf8")),
       })
     )
     .pipe(
       comments(`
-    WEBSITE: https://themefisher.com
-    TWITTER: https://twitter.com/themefisher
-    FACEBOOK: https://facebook.com/themefisher
-    GITHUB: https://github.com/themefisher/
+    Chathuram Chess Academy
+    Based on the Educenter template by Themefisher (MIT licence)
     `)
     )
     .pipe(gulp.dest(path.build.dir))
@@ -74,10 +70,8 @@ gulp.task("scss", function () {
     .pipe(sourcemaps.write("/"))
     .pipe(
       comments(`
-    WEBSITE: https://themefisher.com
-    TWITTER: https://twitter.com/themefisher
-    FACEBOOK: https://facebook.com/themefisher
-    GITHUB: https://github.com/themefisher/
+    Chathuram Chess Academy
+    Based on the Educenter template by Themefisher (MIT licence)
     `)
     )
     .pipe(gulp.dest(path.build.dir + "css/"))
@@ -101,10 +95,8 @@ gulp.task("js", function () {
     .on("error", gutil.log)
     .pipe(
       comments(`
-    WEBSITE: https://themefisher.com
-    TWITTER: https://twitter.com/themefisher
-    FACEBOOK: https://facebook.com/themefisher
-    GITHUB: https://github.com/themefisher/
+    Chathuram Chess Academy
+    Based on the Educenter template by Themefisher (MIT licence)
     `)
     )
     .pipe(gulp.dest(path.build.dir + "js/"))
@@ -113,18 +105,6 @@ gulp.task("js", function () {
         stream: true,
       })
     );
-});
-
-// Image blur
-gulp.task("images-blur", function () {
-  return gulp
-    .src(path.src.blur)
-    .pipe(
-      gm(function (gmfile) {
-        return gmfile.blur(10, 10);
-      })
-    )
-    .pipe(gulp.dest(path.build.dir + "images/"));
 });
 
 // image build
@@ -165,7 +145,7 @@ gulp.task("plugins", function () {
 
 // static files
 gulp.task("static", function () {
-  return gulp.src(path.src.static).pipe(gulp.dest(path.build.dir));
+  return gulp.src(path.src.static, { dot: true }).pipe(gulp.dest(path.build.dir));
 });
 
 // Clean Theme Folder
@@ -175,7 +155,7 @@ gulp.task("clean", function (cb) {
 
 // Watch Task
 gulp.task("watch", function () {
-  gulp.watch(path.src.html, gulp.series("html"));
+  gulp.watch([path.src.html, "source/site.json"], gulp.series("html"));
   gulp.watch(path.src.htminc, gulp.series("html"));
   gulp.watch(path.src.scss, gulp.series("scss"));
   gulp.watch(path.src.js, gulp.series("js"));
@@ -215,23 +195,6 @@ gulp.task(
     "js",
     "scss",
     "images",
-    "fonts",
-    "plugins",
-    "static"
-  )
-);
-
-// Build Download Files Task
-gulp.task(
-  "download",
-  gulp.series(
-    "clean",
-    "html",
-    "js",
-    "scss",
-    "scss-files",
-    "images",
-    "images-blur",
     "fonts",
     "plugins",
     "static"

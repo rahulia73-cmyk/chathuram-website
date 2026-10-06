@@ -2,7 +2,8 @@
 .btn {
   font-size: 16px;
   font-family: $primary-font;
-  text-transform: capitalize;
+  text-transform: none;
+  font-weight: 700;
   padding: 15px 40px;
   border-radius: 0;
   font-weight: 500;
@@ -107,5 +108,25 @@
     color: $white !important;
     background-color: $white !important;
     border: 1px solid $white !important;
+  }
+}
+.btn-outline-dark {
+  color: $black;
+  background-color: transparent;
+  border: 2px solid $black;
+  padding: 13px 38px;
+
+  &::before {
+    background-color: $black;
+  }
+
+  &:active,
+  &:hover,
+  &.focus,
+  &:focus,
+  &.active {
+    color: $white !important;
+    background-color: $black !important;
+    border-color: $black !important;
   }
 }

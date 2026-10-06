@@ -1,11 +1,6 @@
 (function ($) {
 	'use strict';
 
-	// Preloader js    
-	$(window).on('load', function () {
-		$('.preloader').fadeOut(700);
-	});
-
 	// Sticky Menu
 	$(window).scroll(function () {
 		var height = $('.top-header').innerHeight();
@@ -19,86 +14,350 @@
 			$('.navigation').css('margin-top', '-' + 0 + 'px');
 		}
 	});
-	// navbarDropdown
-	if ($(window).width() < 992) {
-		$('.navigation .dropdown-toggle').on('click', function () {
-			$(this).siblings('.dropdown-menu').animate({
-				height: 'toggle'
-			}, 300);
-		});
-	}
 
-	// Background-images
-	$('[data-background]').each(function () {
-		$(this).css({
-			'background-image': 'url(' + $(this).data('background') + ')'
-		});
-	});
+	// Current year in footer
+	$('[data-year]').text(new Date().getFullYear());
 
-	//Hero Slider
-	$('.hero-slider').slick({
-		autoplay: true,
-		autoplaySpeed: 7500,
-		pauseOnFocus: false,
-		pauseOnHover: false,
-		infinite: true,
-		arrows: true,
-		fade: true,
-		prevArrow: '<button type=\'button\' class=\'prevArrow\'><i class=\'ti-angle-left\'></i></button>',
-		nextArrow: '<button type=\'button\' class=\'nextArrow\'><i class=\'ti-angle-right\'></i></button>',
-		dots: true
-	});
-	$('.hero-slider').slickAnimation();
-
-	// venobox popup
-	$(document).ready(function () {
-		$('.venobox').venobox();
-	});
-
-
-	// filter
-	$(document).ready(function () {
-		var containerEl = document.querySelector('.filtr-container');
-		var filterizd;
-		if (containerEl) {
-			filterizd = $('.filtr-container').filterizr({});
+	// Contact form: no server on GitHub Pages, so send the details as a WhatsApp message
+	$('[data-whatsapp-form]').on('submit', function (e) {
+		e.preventDefault();
+		var form = this;
+		var number = String($(form).data('whatsapp-form'));
+		var get = function (name) {
+			var field = form.elements[name];
+			return field ? $.trim(field.value) : '';
+		};
+		var lines = [
+			'Hello Chathuram Chess Academy, I would like to book a free trial class.',
+			'',
+			'Name: ' + get('name'),
+			'Phone: ' + get('phone'),
+			'City: ' + get('city'),
+			'Student age: ' + get('age'),
+			'Level: ' + get('program'),
+			'Class type: ' + get('mode')
+		];
+		if (get('message')) {
+			lines.push('', get('message'));
 		}
-		//Active changer
-		$('.filter-controls li').on('click', function () {
-			$('.filter-controls li').removeClass('active');
-			$(this).addClass('active');
-		});
-	});
-
-	//  Count Up
-	function counter() {
-		var oTop;
-		if ($('.count').length !== 0) {
-			oTop = $('.count').offset().top - window.innerHeight;
-		}
-		if ($(window).scrollTop() > oTop) {
-			$('.count').each(function () {
-				var $this = $(this),
-					countTo = $this.attr('data-count');
-				$({
-					countNum: $this.text()
-				}).animate({
-					countNum: countTo
-				}, {
-					duration: 1000,
-					easing: 'swing',
-					step: function () {
-						$this.text(Math.floor(this.countNum));
-					},
-					complete: function () {
-						$this.text(this.countNum);
-					}
-				});
-			});
-		}
-	}
-	$(window).on('scroll', function () {
-		counter();
+		window.open('https://wa.me/' + number + '?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
 	});
 
 })(jQuery);
+
+// Scroll rails: the pawn hops along a strip of squares as the page scrolls,
+// and becomes a queen on the last square. Wide screens get a strip down the
+// left edge (data-axis="y"); laptops and phones get one under the menu ("x").
+(function () {
+	'use strict';
+
+	var rails = Array.prototype.slice.call(document.querySelectorAll('[data-scroll-rail]')).map(function (rail) {
+		var spinner = rail.querySelector('.scroll-rail-spin');
+		return {
+			el: rail,
+			axis: rail.getAttribute('data-axis') === 'x' ? 'x' : 'y',
+			track: rail.querySelector('.scroll-rail-track'),
+			tiles: Array.prototype.slice.call(rail.querySelectorAll('.scroll-rail-tile')),
+			piece: rail.querySelector('.scroll-rail-piece'),
+			spinner: spinner,
+			imgs: Array.prototype.slice.call(spinner.querySelectorAll('img')),
+			current: -1
+		};
+	});
+	if (!rails.length) {
+		return;
+	}
+	var queued = false;
+
+	var replay = function (rail, cls) {
+		rail.spinner.classList.remove('is-hopping', 'is-promoting');
+		// restart the CSS animation
+		rail.spinner.getBoundingClientRect();
+		rail.spinner.classList.add(cls);
+	};
+
+	var render = function (rail, progress) {
+		// hidden at this screen size
+		if (rail.el.offsetWidth === 0) {
+			rail.current = -1;
+			return;
+		}
+		var last = rail.tiles.length - 1;
+		var index = Math.round(progress * last);
+		var tile = rail.tiles[index];
+		// stand the piece on the middle of its square
+		if (rail.axis === 'x') {
+			var x = rail.track.offsetLeft + tile.offsetLeft + tile.offsetWidth / 2;
+			rail.piece.style.transform = 'translateX(' + x + 'px)';
+		} else {
+			var y = rail.track.offsetTop + tile.offsetTop + tile.offsetHeight / 2;
+			rail.piece.style.transform = 'translateY(' + y + 'px)';
+		}
+
+		if (index === rail.current) {
+			return;
+		}
+		var first = rail.current === -1;
+		rail.tiles.forEach(function (t, i) {
+			t.classList.toggle('is-visited', i < index);
+			t.classList.toggle('is-current', i === index);
+		});
+		var name = index === last ? 'queen' : 'pawn';
+		rail.imgs.forEach(function (img) {
+			img.classList.toggle('is-current', img.getAttribute('data-piece') === name);
+		});
+		if (!first) {
+			replay(rail, index === last ? 'is-promoting' : 'is-hopping');
+		}
+		rail.current = index;
+	};
+
+	var update = function () {
+		queued = false;
+		var max = document.documentElement.scrollHeight - window.innerHeight;
+		var progress = max > 0 ? Math.min(1, Math.max(0, window.pageYOffset / max)) : 0;
+		rails.forEach(function (rail) {
+			render(rail, progress);
+		});
+	};
+
+	var request = function () {
+		if (!queued) {
+			queued = true;
+			window.requestAnimationFrame(update);
+		}
+	};
+
+	window.addEventListener('scroll', request, { passive: true });
+	window.addEventListener('resize', request);
+	window.addEventListener('load', request);
+	update();
+})();
+
+// Pawn path: the mascot spin-jumps up one slanted square per level,
+// from 01 Beginner to 08 Grand Master. On the last square it promotes,
+// spinning into a queen, knight, rook and bishop: every pawn can be more.
+(function () {
+	'use strict';
+
+	var root = document.querySelector('[data-pawn-path]');
+	if (!root || !root.animate) {
+		return;
+	}
+
+	var tiles = Array.prototype.slice.call(root.querySelectorAll('.pp-tile'));
+	var pawn = root.querySelector('.pp-pawn');
+	var spin = root.querySelector('.pp-spin');
+	var glow = root.querySelector('.pp-glow');
+	var toggle = root.querySelector('.pawn-path-toggle');
+	var captionLevel = root.querySelector('.pp-caption-level');
+	var captionName = root.querySelector('.pp-caption-name');
+	var last = tiles.length - 1;
+	var promotions = ['queen', 'knight', 'rook', 'bishop'];
+	var names = { pawn: 'Pawn', queen: 'Queen', knight: 'Knight', rook: 'Rook', bishop: 'Bishop' };
+	var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	// spin around the middle of the piece, not its feet
+	var PIVOT = 72;
+
+	var pos = function (i) {
+		return { x: parseFloat(tiles[i].getAttribute('data-x')), y: parseFloat(tiles[i].getAttribute('data-y')) };
+	};
+	var at = function (x, y) {
+		return 'translate(' + x + 'px, ' + y + 'px)';
+	};
+	var turn = function (deg, sx, sy) {
+		return 'translate(0px, -' + PIVOT + 'px) rotate(' + deg + 'deg) translate(0px, ' + PIVOT + 'px) scale(' + sx + ', ' + sy + ')';
+	};
+	var caption = function (level, name) {
+		if (captionLevel) {
+			captionLevel.textContent = level;
+			captionName.textContent = name;
+		}
+	};
+	var place = function (i) {
+		var p = pos(i);
+		pawn.style.transform = at(p.x, p.y);
+		caption('Level ' + tiles[i].getAttribute('data-level'), tiles[i].getAttribute('data-name'));
+	};
+	var become = function (piece) {
+		Array.prototype.forEach.call(root.querySelectorAll('.pp-piece'), function (g) {
+			g.classList.toggle('is-current', g.getAttribute('data-piece') === piece);
+		});
+	};
+	var clear = function () {
+		tiles.forEach(function (t) {
+			t.classList.remove('is-target', 'is-visited');
+		});
+	};
+	var sparkle = function () {
+		var p = pos(last);
+		glow.setAttribute('cx', p.x);
+		glow.setAttribute('cy', p.y);
+		root.classList.remove('is-promoted');
+		// restart the CSS animation
+		glow.getBoundingClientRect();
+		root.classList.add('is-promoted');
+	};
+
+	if (reduceMotion) {
+		place(last);
+		tiles[last].classList.add('is-target');
+		return;
+	}
+
+	var current = 0;
+	var timer = null;
+	var playing = false;
+	var paused = false;
+	var visible = true;
+	var busy = false;
+	var hops = 0;
+
+	var wait = function (ms, fn) {
+		if (playing) {
+			timer = window.setTimeout(fn, ms);
+		}
+	};
+
+	// one jump: the body travels along an arc while the piece spins and squashes
+	var jump = function (from, to, opts, done) {
+		var a = pos(from);
+		var b = pos(to);
+		var dir = hops++ % 2 ? -1 : 1;
+		var turns = 360 * (opts.turns || 1) * dir;
+		var duration = opts.duration || 760;
+		busy = true;
+		pawn.animate([
+			{ transform: at(a.x, a.y) },
+			{ transform: at(a.x, a.y), offset: 0.12 },
+			{ transform: at((a.x + b.x) / 2, (a.y + b.y) / 2 - opts.lift), offset: 0.52, easing: 'ease-in' },
+			{ transform: at(b.x, b.y), offset: 0.88 },
+			{ transform: at(b.x, b.y) }
+		], { duration: duration, easing: 'ease-out' });
+		var anim = spin.animate([
+			{ transform: turn(0, 1, 1) },
+			{ transform: turn(0, 1.18, 0.78), offset: 0.12 },
+			{ transform: turn(0, 0.9, 1.12), offset: 0.2 },
+			{ transform: turn(turns, 1, 1), offset: 0.8 },
+			{ transform: turn(turns, 1.16, 0.8), offset: 0.9 },
+			{ transform: turn(turns, 1, 1) }
+		], { duration: duration, easing: 'ease-in-out' });
+		if (opts.swapTo) {
+			window.setTimeout(function () {
+				become(opts.swapTo);
+				if (opts.onSwap) {
+					opts.onSwap();
+				}
+			}, duration * 0.5);
+		}
+		anim.onfinish = function () {
+			busy = false;
+			spin.style.transform = '';
+			done();
+		};
+	};
+
+	var step;
+
+	var promote = function (k) {
+		if (!playing) {
+			return;
+		}
+		if (k === promotions.length) {
+			wait(1400, function () {
+				pawn.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: 'forwards' }).onfinish = function () {
+					clear();
+					become('pawn');
+					current = 0;
+					place(0);
+					pawn.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, fill: 'forwards' });
+					wait(700, step);
+				};
+			});
+			return;
+		}
+		var piece = promotions[k];
+		jump(last, last, { lift: 70, turns: 2, duration: 1000, swapTo: piece }, function () {
+			sparkle();
+			caption('Promotion', 'Pawn → ' + names[piece]);
+			wait(1100, function () {
+				promote(k + 1);
+			});
+		});
+	};
+
+	step = function () {
+		if (!playing) {
+			return;
+		}
+		if (current === last) {
+			promote(0);
+			return;
+		}
+		var next = current + 1;
+		tiles[next].classList.add('is-target');
+		wait(300, function () {
+			jump(current, next, { lift: 60 }, function () {
+				for (var i = 0; i < next; i++) {
+					tiles[i].classList.add('is-visited');
+				}
+				tiles[next].classList.remove('is-target');
+				current = next;
+				place(current);
+				wait(current === last ? 400 : 380, step);
+			});
+		});
+	};
+
+	var start = function () {
+		if (playing || paused || !visible || document.hidden) {
+			return;
+		}
+		playing = true;
+		// a jump already in flight carries on into the next step by itself
+		if (!busy) {
+			step();
+		}
+	};
+	var stop = function () {
+		playing = false;
+		window.clearTimeout(timer);
+	};
+
+	place(0);
+
+	if ('IntersectionObserver' in window) {
+		new IntersectionObserver(function (entries) {
+			visible = entries[0].isIntersecting;
+			if (visible) {
+				start();
+			} else {
+				stop();
+			}
+		}).observe(root);
+	}
+	document.addEventListener('visibilitychange', function () {
+		if (document.hidden) {
+			stop();
+		} else {
+			start();
+		}
+	});
+
+	if (toggle) {
+		toggle.hidden = false;
+		toggle.addEventListener('click', function () {
+			paused = !paused;
+			toggle.setAttribute('aria-pressed', String(paused));
+			toggle.querySelector('.sr-only').textContent = paused ? 'Play animation' : 'Pause animation';
+			toggle.querySelector('i').className = paused ? 'ti-control-play' : 'ti-control-pause';
+			if (paused) {
+				stop();
+			} else {
+				start();
+			}
+		});
+	}
+
+	start();
+})();

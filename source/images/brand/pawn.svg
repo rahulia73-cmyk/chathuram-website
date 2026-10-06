@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290 520" role="img" aria-label="Chathuram pawn">
+  <title>Chathuram pawn</title>
+  <defs>
+    <mask id="p-head" maskUnits="userSpaceOnUse" x="0" y="0" width="290" height="520">
+      <rect width="290" height="520" fill="#fff"/>
+      <path d="M174 102 q24 10 52 2" fill="none" stroke="#000" stroke-width="7" stroke-linecap="round"/>
+    </mask>
+    <mask id="p-body" maskUnits="userSpaceOnUse" x="0" y="0" width="290" height="520">
+      <rect width="290" height="520" fill="#fff"/>
+      <path d="M20 508 Q22 452 80 432 Q172 416 250 468 Q268 488 268 508 Z" fill="#000" stroke="#000" stroke-width="12" stroke-linejoin="round"/>
+    </mask>
+  </defs>
+  <circle cx="150" cy="95" r="72" fill="#000" mask="url(#p-head)"/>
+  <path d="M88 198 Q150 166 216 182 L218 214 Q150 200 92 228 Z" fill="#F1592A"/>
+  <path d="M110 242 Q160 230 206 242 Q212 350 236 452 L58 420 Q100 340 110 242 Z" fill="#000" mask="url(#p-body)"/>
+  <path d="M20 508 Q22 452 80 432 Q172 416 250 468 Q268 488 268 508 Z" fill="#000"/>
+</svg>
