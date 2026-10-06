@@ -11,18 +11,46 @@
     overflow: visible;
   }
 
+  // each square is a brick: a top face with four studs and two side faces
   .pp-tile {
-    fill: $black;
-    transition: fill .35s ease, opacity .35s ease;
+    --top: #1c1c1c;
+    --side: #000;
+    --side-r: #0d0d0d;
+    --stud: #2e2e2e;
 
     &.is-visited {
-      fill: $brand-gray;
-      opacity: .45;
+      --top: #d9d4cc;
+      --side: #b9b3aa;
+      --side-r: #c6c0b7;
+      --stud: #e6e1da;
     }
 
     &.is-target {
-      fill: $primary-color;
+      --top: #{$primary-color};
+      --side: #a8391a;
+      --side-r: #c4461f;
+      --stud: #ff7b52;
     }
+  }
+
+  .pp-top {
+    fill: var(--top);
+  }
+
+  .pp-side {
+    fill: var(--side);
+  }
+
+  .pp-side-r {
+    fill: var(--side-r);
+  }
+
+  .pp-stud-side {
+    fill: var(--side);
+  }
+
+  .pp-stud-top {
+    fill: var(--stud);
   }
 
   .pp-rank {
