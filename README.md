@@ -1,6 +1,6 @@
 # Chathuram Chess Academy website
 
-Website for Chathuram Chess Academy (Hyderabad and online). Pages: Home, Why Chess, Programs, Coaches and Contact.
+Website for Chathuram Chess Academy (Hyderabad and online). Pages: Home, Why Chess, Programs, Coaches and Contact, plus Privacy policy and Terms (linked in the footer).
 
 Built from the [Educenter](https://github.com/themefisher/educenter) template by Themefisher (MIT licence, see `LICENSE`).
 
@@ -11,7 +11,7 @@ Built from the [Educenter](https://github.com/themefisher/educenter) template by
   - `kindleLink`: link to the kids' puzzle book on Kindle. Until it is set, the book section says "Coming soon on Kindle".
   - `homeVideoYouTubeId`: the ID of a YouTube video (the part after `v=`) for the "Chathuram in a minute" section. Or put a short `.mp4` in `source/static/videos/` and set `homeVideoFile` to `videos/name.mp4` (YouTube is better for large files).
   - `studentPhotos`: put photos in `source/images/students/` and list them, e.g. `{"src": "images/students/class-1.jpg", "alt": "Students solving puzzles"}`. The "Our students" gallery appears once there is at least one.
-- **Pages**: `source/index.html`, `why-chess.html`, `programs.html`, `coaches.html`, `contact.html`.
+- **Pages**: `source/index.html`, `why-chess.html`, `programs.html`, `coaches.html`, `contact.html`, `privacy.html`, `terms.html`.
 - **Shared parts**: `source/partials/` (menu, footer, call-to-action, program cards, pawn animation).
 - **Colours and fonts**: `source/scss/_variables.scss`.
 - **Logo and mascot**: `source/images/brand/` (`mascot.svg`, `pawn.svg`, favicons, social preview image).

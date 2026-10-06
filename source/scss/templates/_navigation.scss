@@ -29,13 +29,12 @@
 }
 
 .navigation {
-  background: $white;
-  transition: .2s ease;
+  background: $body-color;
   border-bottom: 1px solid $border-color;
 }
 
 .nav-bg {
-  box-shadow: 0 4px 20px rgba($black, .08);
+  border-bottom-color: $border-color-dark;
 }
 
 /* logo: mascot + wordmark */
@@ -105,9 +104,7 @@
     width: 100%;
     content: "";
     background: $primary-color;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform .3s ease;
+    display: none;
     pointer-events: none;
 
     @include desktop {
@@ -115,10 +112,11 @@
     }
   }
 
-  &:hover,
-  &.active {
-    &::before {
-      transform: scaleX(1);
+  &.active::before {
+    display: block;
+
+    @include desktop {
+      display: none;
     }
   }
 
@@ -134,7 +132,10 @@
   color: $black;
 }
 
-.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link:hover {
+  color: $primary-color;
+}
+
 .navbar-light .navbar-nav .active > .nav-link {
   color: $black;
 }

@@ -39,7 +39,8 @@ gulp.task("html", function () {
       fileinclude({
         basepath: path.src.incdir,
         // contact details etc. live in source/site.json
-        context: JSON.parse(fs.readFileSync("source/site.json", "utf8")),
+        // the build time stamps css/js links so browsers fetch fresh files
+        context: Object.assign(JSON.parse(fs.readFileSync("source/site.json", "utf8")), { version: Date.now() }),
       })
     )
     .pipe(

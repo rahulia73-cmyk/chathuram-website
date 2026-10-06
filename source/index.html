@@ -14,7 +14,7 @@
           <a href="contact.html" class="btn btn-primary mr-3 mb-3">Enquire now</a>
           <a href="programs.html" class="btn btn-outline-dark mb-3">See our programs</a>
         </div>
-        <p class="hero-note"><span><i class="ti-check text-primary mr-1" aria-hidden="true"></i>First class free</span><span><i class="ti-check text-primary mr-1" aria-hidden="true"></i>No registration fee</span><span><i class="ti-check text-primary mr-1" aria-hidden="true"></i>Ages 6 and up</span></p>
+        <p class="hero-note">First class free &middot; No registration fee &middot; Ages 6 and up</p>
       </div>
       <div class="col-lg-6">
         @@include('blocks/pawn-path.htm')
@@ -56,34 +56,22 @@
         <p>Like a pawn, every student moves forward one square at a time. Each of our eight levels has clear goals, so students always know their next move.</p>
       </div>
     </div>
-    <div class="row">
-      <div class="col-lg-3 col-sm-6 mb-4" data-aos="fade-up">
-        <div class="feature-card h-100">
-          <span class="tile-icon" aria-hidden="true"></span>
-          <h3 class="h4">FIDE-rated tutors</h3>
-          <p class="mb-0">Every class is taught by a FIDE-rated chess tutor.</p>
-        </div>
+    <div class="info-list">
+      <div class="info-row" data-aos="fade-up">
+        <div class="info-head"><h3 class="h4 mb-0">FIDE-rated tutors</h3></div>
+        <p class="mb-0">Every class is taught by a FIDE-rated chess tutor.</p>
       </div>
-      <div class="col-lg-3 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-        <div class="feature-card h-100">
-          <span class="tile-icon" aria-hidden="true"></span>
-          <h3 class="h4">Small batches or 1-on-1</h3>
-          <p class="mb-0">Learn in a small batch with players at your level, or take one-on-one classes with your own tutor.</p>
-        </div>
+      <div class="info-row" data-aos="fade-up">
+        <div class="info-head"><h3 class="h4 mb-0">Small batches or 1-on-1</h3></div>
+        <p class="mb-0">Learn in a small batch with players at your level, or take one-on-one classes with your own tutor.</p>
       </div>
-      <div class="col-lg-3 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="200">
-        <div class="feature-card h-100">
-          <span class="tile-icon" aria-hidden="true"></span>
-          <h3 class="h4">Eight clear levels</h3>
-          <p class="mb-0">From Beginner Level to Grand Master Level, students move up when they are ready. Ages 6 and up.</p>
-        </div>
+      <div class="info-row" data-aos="fade-up">
+        <div class="info-head"><h3 class="h4 mb-0">Eight clear levels</h3></div>
+        <p class="mb-0">From Beginner Level to Grand Master Level, students move up when they are ready. Ages 6 and up.</p>
       </div>
-      <div class="col-lg-3 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="300">
-        <div class="feature-card h-100">
-          <span class="tile-icon" aria-hidden="true"></span>
-          <h3 class="h4">Hyderabad &amp; online</h3>
-          <p class="mb-0">In person in Hyderabad, or live online from anywhere. Students in the USA learn online.</p>
-        </div>
+      <div class="info-row" data-aos="fade-up">
+        <div class="info-head"><h3 class="h4 mb-0">Hyderabad &amp; online</h3></div>
+        <p class="mb-0">In person in Hyderabad, or live online from anywhere. Students in the USA learn online.</p>
       </div>
     </div>
   </div>
@@ -140,7 +128,7 @@
         <h2 class="mb-0">Eight levels. One square at a time.</h2>
       </div>
       <div class="col-md-4 text-md-right mt-3 mt-md-0">
-        <a href="programs.html" class="link-arrow">All programs <i class="ti-arrow-right ml-1"></i></a>
+        <a href="programs.html" class="link-underline">All programs</a>
       </div>
     </div>
     @@include('blocks/program-cards.htm')
@@ -164,7 +152,7 @@
         <h2 class="mb-3">Puzzles we wrote for our young players.</h2>
         <p>We created our own chess puzzle book for kids, the same puzzles our students solve in class. Kids can keep practising at home, one square at a time.</p>
         @@if (kindleLink) {<a href="@@kindleLink" class="btn btn-primary mt-2" target="_blank" rel="noopener">Get it on Kindle</a>}
-        @@if (!kindleLink) {<p class="book-soon"><i class="ti-book text-primary mr-2" aria-hidden="true"></i>Coming soon on Kindle</p>}
+        @@if (!kindleLink) {<p class="book-soon">Coming soon on Kindle</p>}
       </div>
     </div>
   </div>

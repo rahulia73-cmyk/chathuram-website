@@ -9,10 +9,8 @@
   width: 64px;
   z-index: 5;
   pointer-events: none;
-  background: $white;
-  border: 1px solid $border-color;
-  border-radius: 32px;
-  box-shadow: 0 4px 18px rgba($black, .08);
+  background: $body-color;
+  border: 1px solid $border-color-dark;
 
   @media (min-width: 1320px) {
     display: block;
@@ -150,7 +148,7 @@
   display: block;
   position: relative;
   height: 40px;
-  background: $white;
+  background: $body-color;
   border-bottom: 1px solid $border-color;
 
   @media (min-width: 1320px) {

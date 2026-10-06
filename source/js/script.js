@@ -162,7 +162,6 @@
 	var tiles = Array.prototype.slice.call(root.querySelectorAll('.pp-tile'));
 	var pawn = root.querySelector('.pp-pawn');
 	var spin = root.querySelector('.pp-spin');
-	var glow = root.querySelector('.pp-glow');
 	var toggle = root.querySelector('.pawn-path-toggle');
 	var captionLevel = root.querySelector('.pp-caption-level');
 	var captionName = root.querySelector('.pp-caption-name');
@@ -203,15 +202,6 @@
 			t.classList.remove('is-target', 'is-visited');
 		});
 	};
-	var sparkle = function () {
-		var p = pos(last);
-		glow.setAttribute('cx', p.x);
-		glow.setAttribute('cy', p.y);
-		root.classList.remove('is-promoted');
-		// restart the CSS animation
-		glow.getBoundingClientRect();
-		root.classList.add('is-promoted');
-	};
 
 	if (reduceMotion) {
 		place(last);
@@ -225,7 +215,6 @@
 	var paused = false;
 	var visible = true;
 	var busy = false;
-	var hops = 0;
 
 	var wait = function (ms, fn) {
 		if (playing) {
@@ -237,7 +226,8 @@
 	var jump = function (from, to, opts, done) {
 		var a = pos(from);
 		var b = pos(to);
-		var lean = (hops++ % 2 ? -1 : 1) * 6;
+		// always the same small forward lean, never switching sides
+		var lean = opts.lean === undefined ? 4 : opts.lean;
 		var duration = opts.duration || 1100;
 		busy = true;
 		pawn.animate([
@@ -249,7 +239,7 @@
 		], { duration: duration, easing: 'ease-out' });
 		var anim = spin.animate([
 			{ transform: turn(0, 1, 1) },
-			{ transform: turn(-lean / 2, 1.05, 0.94), offset: 0.15 },
+			{ transform: turn(0, 1.05, 0.94), offset: 0.15 },
 			{ transform: turn(lean, 1, 1), offset: 0.55 },
 			{ transform: turn(0, 1.04, 0.96), offset: 0.92 },
 			{ transform: turn(0, 1, 1) }
@@ -292,8 +282,7 @@
 		var onSwap = function () {
 			caption('Promotion', 'Pawn \u2192 ' + names[piece]);
 		};
-		jump(last, last, { lift: 40, duration: 1200, swapTo: piece, onSwap: onSwap }, function () {
-			sparkle();
+		jump(last, last, { lift: 40, lean: 0, duration: 1200, swapTo: piece, onSwap: onSwap }, function () {
 			wait(1100, function () {
 				promote(k + 1);
 			});
@@ -363,8 +352,7 @@
 		toggle.addEventListener('click', function () {
 			paused = !paused;
 			toggle.setAttribute('aria-pressed', String(paused));
-			toggle.querySelector('.sr-only').textContent = paused ? 'Play animation' : 'Pause animation';
-			toggle.querySelector('i').className = paused ? 'ti-control-play' : 'ti-control-pause';
+			toggle.querySelector('.pawn-path-toggle-label').textContent = paused ? 'Play' : 'Pause';
 			if (paused) {
 				stop();
 			} else {
