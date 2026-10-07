@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+  <title>Chathuram pawn, cream</title>
+  <rect width="1080" height="1080" fill="#faf7f4"/>
+  <svg x="150" y="140" width="752" height="780" viewBox="-130 0 520 540">  <defs><mask id="d-pawn-h" maskUnits="userSpaceOnUse" x="-200" y="-40" width="700" height="620"><rect x="-200" y="-40" width="700" height="620" fill="#fff"/><path stroke="#000" d="M171 137 q24 10 52 2" fill="none" stroke-width="7" stroke-linecap="round"/></mask><mask id="d-pawn-b" maskUnits="userSpaceOnUse" x="-200" y="-40" width="700" height="620"><rect x="-200" y="-40" width="700" height="620" fill="#fff"/><path d="M-120 522 Q-60 497 -12 469 Q3 433 48 425 Q128 419 183 469 Q203 485 243 493 L223 505 Q63 493 -57 515 Q-100 521 -120 522 Z" fill="#000" stroke="#000" stroke-width="12" stroke-linejoin="round"/></mask></defs>
+  <g fill="#000" mask="url(#d-pawn-h)"><circle cx="146" cy="133" r="72"/></g><path d="M93 223 Q158 189 227 201 L230 231 Q161 221 97 249 Z" fill="#f1592a"/><path d="M113 261 Q161 247 213 253 Q221 358 248 468 L53 408 Q101 343 113 261 Z" fill="#000" mask="url(#d-pawn-b)"/><path d="M-120 522 Q-60 497 -12 469 Q3 433 48 425 Q128 419 183 469 Q203 485 243 493 L223 505 Q63 493 -57 515 Q-100 521 -120 522 Z" fill="#000"/>
+</svg>
+</svg>
