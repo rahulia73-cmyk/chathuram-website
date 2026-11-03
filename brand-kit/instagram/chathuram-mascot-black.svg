@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+  <title>Chathuram mascot, black</title>
+  <rect width="1080" height="1080" fill="#000000"/>
+  <svg x="85" y="265" width="910" height="565" viewBox="80 20 870 540"><defs>
+    <mask id="m-head" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="600">
+      <rect width="1000" height="600" fill="#fff"/>
+      <path d="M468 114 q24 10 52 2" fill="none" stroke="#000" stroke-width="7" stroke-linecap="round"/>
+    </mask>
+    <mask id="m-body" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="600">
+      <rect width="1000" height="600" fill="#fff"/>
+      <path id="m-base" d="M98 506 Q190 472 285 446 Q300 410 345 402 Q425 396 480 446 Q500 462 540 470 L520 482 Q360 470 240 492 Q160 504 98 506 Z" fill="#000" stroke="#000" stroke-width="12" stroke-linejoin="round"/>
+    </mask>
+  </defs>  
+  <path d="M715 350 L822 306 L932 322 L826 370 Z" fill="#fff"/>
+  <path d="M568 403 L678 361 L822 384 L720 430 Z" fill="#F1592A"/>
+  <path d="M470 497 L590 452 L802 478 L692 547 Z" fill="#fff" mask="url(#m-body)"/>
+  <circle cx="443" cy="110" r="72" fill="#fff" mask="url(#m-head)"/>
+  <path d="M390 200 Q455 166 524 178 L527 208 Q458 198 394 226 Z" fill="#F1592A"/>
+  <path d="M410 238 Q458 224 510 230 Q518 335 545 445 L350 385 Q398 320 410 238 Z" fill="#fff" mask="url(#m-body)"/>
+  <path d="M98 506 Q190 472 285 446 Q300 410 345 402 Q425 396 480 446 Q500 462 540 470 L520 482 Q360 470 240 492 Q160 504 98 506 Z" fill="#fff"/>
+</svg>
+</svg>
