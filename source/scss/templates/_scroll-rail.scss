@@ -78,10 +78,11 @@
     img {
       display: none;
       position: absolute;
-      left: 0;
+      left: 50%;
       bottom: 0;
-      width: 60px;
-      height: auto;
+      width: auto;
+      height: 56px;
+      transform: translateX(-50%);
 
       &.is-current {
         display: block;
@@ -192,7 +193,7 @@
     height: 30px;
 
     img {
-      width: 32px;
+      height: 30px;
     }
   }
 }
