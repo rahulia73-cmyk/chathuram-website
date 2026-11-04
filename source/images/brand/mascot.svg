@@ -10,6 +10,6 @@
   <path d="M568 403 L678 361 L822 384 L720 430 Z" fill="#F1592A"/>
   <path d="M470 497 L590 452 L802 478 L692 547 Z" fill="#000"/>
   <circle cx="443" cy="110" r="72" fill="#000" mask="url(#m-head)"/>
-  <path d="M390 200 Q455 166 524 178 L527 208 Q458 198 394 226 Z" fill="#F1592A"/>
+  <path d="M390 200 Q455 166 524 178 L527 208 Q458 198 394 226 Z" fill="#F1592A" stroke="#F1592A" stroke-width="10" stroke-linejoin="round"/>
   <path d="M410 238 Q458 224 510 230 Q520 340 540 452 L345 452 Q396 330 410 238 Z" fill="#000"/>
 </svg>

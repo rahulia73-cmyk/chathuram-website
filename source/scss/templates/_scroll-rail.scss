@@ -107,10 +107,76 @@
   }
 }
 
+/* the same row of squares under the menu, for laptops and phones */
+.scroll-bar {
+  display: block;
+  position: relative;
+  height: 44px;
+  background: $body-color;
+  border-bottom: 1px solid $border-color;
+
+  @media (min-width: 1320px) {
+    display: none;
+  }
+
+  .scroll-rail-track {
+    position: absolute;
+    left: 15px;
+    right: 15px;
+    top: 30px;
+    height: 12px;
+    flex-direction: row;
+    align-items: center;
+
+    &::before {
+      top: 50%;
+      bottom: auto;
+      left: 6px;
+      right: 6px;
+      border-left: 0;
+      border-top: 2px dashed $border-color-dark;
+    }
+  }
+
+  .scroll-rail-tile {
+    width: 18px;
+    height: 18px;
+  }
+
+  .scroll-rail-piece {
+    top: 36px;
+    left: 0;
+    height: 0;
+  }
+
+  .scroll-rail-spin {
+    left: -16px;
+    width: 32px;
+    height: 32px;
+
+    img {
+      height: 30px;
+    }
+  }
+
+  .rail-puff span {
+    left: -9px;
+    top: -9px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+// make room for the scroll bar under the fixed header
+@media (max-width: 1319px) {
+  main {
+    padding-top: 44px;
+  }
+}
+
 /* the cloud puff left behind when a square vanishes */
 .rail-puff {
   position: absolute;
-  left: 50%;
   width: 0;
   height: 0;
   pointer-events: none;

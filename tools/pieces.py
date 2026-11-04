@@ -63,7 +63,7 @@ def piece_group(name, fill, prefix):
     )
     shapes = (
         f'<g fill="{fill}" mask="url(#{head_id})">{p["head"]}</g>'
-        f'<path d="{p["collar"]}" fill="{ORANGE}"/>'
+        f'<path d="{p["collar"]}" fill="{ORANGE}" stroke="{ORANGE}" stroke-width="10" stroke-linejoin="round"/>'
         f'<path d="{p["body"]}" fill="{fill}"/>'
     )
     return masks, shapes
