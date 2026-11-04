@@ -110,30 +110,3 @@
   @include studs("000000", 8px, 12px);
 }
 
-// scroll strip squares are tiny bricks: a darker edge underneath and two studs
-.scroll-rail-tile {
-  border-bottom: 4px solid #000;
-
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    top: -4px;
-    width: 8px;
-    height: 4px;
-    border-radius: 1px 1px 0 0;
-    background: inherit;
-  }
-
-  &::before {
-    left: 6px;
-  }
-
-  &::after {
-    right: 6px;
-  }
-
-  &.is-current {
-    border-bottom-color: #a8391a;
-  }
-}
