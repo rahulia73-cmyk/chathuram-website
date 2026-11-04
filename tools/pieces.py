@@ -1,7 +1,8 @@
 """Generate the Chathuram chess-piece mascots.
 
-Every piece shares the mascot's look (black body, orange collar, a white
-smile notch) and stands on the flat bottom of its body, with no base.
+Every piece shares the mascot's look (black body, orange collar) and stands
+on the flat bottom of its body. The pieces have no faces; only the logo
+mascot keeps its smile.
 
 Run from the repository root:  python3 tools/pieces.py
 """
@@ -15,20 +16,19 @@ ANCHOR = (150, 470)
 PIECES = {
     "pawn": {
         "head": '<circle cx="146" cy="133" r="72"/>',
-        "cuts": ['<path d="M171 137 q24 10 52 2" fill="none" stroke-width="7" stroke-linecap="round"/>'],
+        "cuts": [],
         "collar": "M93 223 Q158 189 227 201 L230 231 Q161 221 97 249 Z",
         "body": "M113 261 Q161 247 213 253 Q222 370 248 470 L50 470 Q100 360 113 261 Z",
     },
     "bishop": {
         "head": '<circle cx="150" cy="40" r="17"/><path d="M150 62 C208 100 220 160 188 206 L112 206 C80 160 92 100 150 62 Z"/>',
-        "cuts": ['<path d="M202 96 L174 118" fill="none" stroke-width="7" stroke-linecap="round"/>',
-                 '<path d="M166 154 q24 10 54 2" fill="none" stroke-width="7" stroke-linecap="round"/>'],
+        "cuts": ['<path d="M202 96 L174 118" fill="none" stroke-width="7" stroke-linecap="round"/>'],
         "collar": "M95 220 Q150 196 205 220 L207 248 Q150 226 93 248 Z",
         "body": "M112 262 Q150 252 188 262 Q205 370 246 470 L54 470 Q95 370 112 262 Z",
     },
     "rook": {
         "head": '<path d="M82 58 H114 V84 H134 V58 H166 V84 H186 V58 H218 V182 H82 Z"/>',
-        "cuts": ['<path d="M160 136 q18 8 40 1" fill="none" stroke-width="8" stroke-linecap="round"/>'],
+        "cuts": [],
         "collar": "M76 194 H224 V222 H76 Z",
         "body": "M98 238 H202 L215 470 H85 Z",
     },
@@ -36,16 +36,14 @@ PIECES = {
         "head": ('<path d="M86 112 L74 38 L112 78 L131 22 L150 70 L169 22 L188 78 L226 38 L214 112 Z"/>'
                  '<circle cx="74" cy="34" r="10"/><circle cx="131" cy="18" r="10"/><circle cx="169" cy="18" r="10"/><circle cx="226" cy="34" r="10"/>'
                  '<circle cx="150" cy="138" r="54"/>'),
-        "cuts": ['<path d="M168 142 q20 8 40 1" fill="none" stroke-width="7" stroke-linecap="round"/>',
-                 '<path d="M90 104 H210" fill="none" stroke-width="7"/>'],
+        "cuts": ['<path d="M90 104 H210" fill="none" stroke-width="7"/>'],
         "collar": "M88 204 Q150 176 212 204 L214 232 Q150 208 86 232 Z",
         "body": "M110 248 Q150 238 190 248 Q206 360 248 470 L52 470 Q94 360 110 248 Z",
     },
     "knight": {
         "head": ('<path d="M104 232 C92 160 96 92 116 50 L124 18 L146 46 C186 58 222 94 242 128 '
                  'Q250 146 238 160 Q222 170 198 162 C192 186 194 206 198 232 Z"/>'),
-        "cuts": ['<circle cx="160" cy="84" r="8"/>',
-                 '<path d="M206 146 q14 6 32 0" fill="none" stroke-width="7" stroke-linecap="round"/>'],
+        "cuts": [],
         "collar": "M90 230 Q150 206 210 226 L212 254 Q150 232 88 258 Z",
         "body": "M106 272 Q150 262 198 272 Q210 360 246 470 L54 470 Q96 360 106 272 Z",
     },

@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="30 0 240 480" role="img" aria-label="Chathuram bishop mascot">
   <title>Chathuram bishop mascot</title>
-  <defs><mask id="l-bishop-h" maskUnits="userSpaceOnUse" x="-200" y="-40" width="700" height="620"><rect x="-200" y="-40" width="700" height="620" fill="#fff"/><path stroke="#000" d="M202 96 L174 118" fill="none" stroke-width="7" stroke-linecap="round"/><path stroke="#000" d="M166 154 q24 10 54 2" fill="none" stroke-width="7" stroke-linecap="round"/></mask></defs>
+  <defs><mask id="l-bishop-h" maskUnits="userSpaceOnUse" x="-200" y="-40" width="700" height="620"><rect x="-200" y="-40" width="700" height="620" fill="#fff"/><path stroke="#000" d="M202 96 L174 118" fill="none" stroke-width="7" stroke-linecap="round"/></mask></defs>
   <g fill="#fff" mask="url(#l-bishop-h)"><circle cx="150" cy="40" r="17"/><path d="M150 62 C208 100 220 160 188 206 L112 206 C80 160 92 100 150 62 Z"/></g><path d="M95 220 Q150 196 205 220 L207 248 Q150 226 93 248 Z" fill="#f1592a"/><path d="M112 262 Q150 252 188 262 Q205 370 246 470 L54 470 Q95 370 112 262 Z" fill="#fff"/>
 </svg>

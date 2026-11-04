@@ -1,0 +1,193 @@
+/* scroll rail: a column of squares down the left edge on wide screens.
+   As the page scrolls, the square under the pawn vanishes in a puff of
+   cloud and the pawn drops onto the next one. */
+.scroll-rail {
+  display: none;
+  position: fixed;
+  left: 18px;
+  top: 150px;
+  bottom: 40px;
+  width: 64px;
+  z-index: 5;
+  pointer-events: none;
+  background: $body-color;
+  border: 1px solid $border-color-dark;
+
+  @media (min-width: 1320px) {
+    display: block;
+  }
+
+  &-track {
+    position: absolute;
+    top: 70px;
+    bottom: 24px;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    // a faint line joining the squares
+    &::before {
+      content: "";
+      position: absolute;
+      top: 6px;
+      bottom: 6px;
+      left: 50%;
+      border-left: 2px dashed $border-color-dark;
+    }
+  }
+
+  // every square is the same flat diamond, centred on the line
+  &-tile {
+    position: relative;
+    display: block;
+    width: 26px;
+    height: 26px;
+    background: $black;
+    transform: scaleY(.56) rotate(45deg);
+    transition: opacity .3s ease, transform .3s ease, background-color .3s ease;
+
+    &.is-current {
+      background: $primary-color;
+    }
+
+    &.is-poofed {
+      opacity: 0;
+      transform: scaleY(.56) rotate(45deg) scale(1.5);
+    }
+  }
+
+  &-piece {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 0;
+    // rising back up when scrolling up
+    transition: transform .5s cubic-bezier(.2, .7, .3, 1);
+    will-change: transform;
+
+    // dropping onto the next square, like falling under gravity
+    &.is-falling {
+      transition: transform .55s cubic-bezier(.55, 0, .9, .45);
+    }
+  }
+
+  &-spin {
+    position: absolute;
+    bottom: 2px;
+    left: -30px;
+    width: 60px;
+    height: 56px;
+    transform-origin: 50% 90%;
+    transition: rotate .15s linear;
+
+    img {
+      display: none;
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: auto;
+      height: 52px;
+      transform: translateX(-50%);
+
+      &.is-current {
+        display: block;
+      }
+    }
+
+    &.is-landing {
+      animation: rail-land .7s ease-out;
+    }
+
+    &.is-promoting {
+      animation: rail-promote 1s ease-out;
+    }
+  }
+}
+
+/* the cloud puff left behind when a square vanishes */
+.rail-puff {
+  position: absolute;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+
+  span {
+    position: absolute;
+    left: -12px;
+    top: -12px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #cfc9bf;
+    opacity: 0;
+    animation: rail-puff .9s ease-out forwards;
+
+    &:nth-child(1) { --dx: -16px; --dy: -6px; }
+    &:nth-child(2) { --dx: 15px; --dy: -8px; background: #dcd6cd; }
+    &:nth-child(3) { --dx: -6px; --dy: -16px; background: #dcd6cd; animation-delay: .05s; }
+    &:nth-child(4) { --dx: 9px; --dy: 7px; animation-delay: .05s; }
+    &:nth-child(5) { --dx: -11px; --dy: 9px; background: #dcd6cd; animation-delay: .1s; }
+  }
+}
+
+@keyframes rail-puff {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(.5);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy)) scale(1.5);
+  }
+}
+
+@keyframes rail-land {
+  0%,
+  70% {
+    transform: none;
+  }
+
+  82% {
+    transform: scale(1.1, .86);
+  }
+
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes rail-promote {
+  0%,
+  70% {
+    transform: none;
+    opacity: .4;
+  }
+
+  85% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+
+  100% {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-rail-piece,
+  .scroll-rail-tile {
+    transition: none;
+  }
+
+  .scroll-rail-spin.is-landing,
+  .scroll-rail-spin.is-promoting,
+  .rail-puff {
+    animation: none;
+    display: none;
+  }
+}
