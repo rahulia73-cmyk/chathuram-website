@@ -45,91 +45,111 @@
 
 })(jQuery);
 
-// Scroll rail (wide screens): as the page scrolls, the square under the pawn
-// vanishes in a puff of cloud and the pawn drops onto the next square.
-// On the last square it becomes a queen.
+// Scroll rails: as the page scrolls, the square under the pawn vanishes in a
+// puff of cloud and the pawn drops onto the next square. On the last square it
+// becomes a queen. Wide screens get a column down the left edge
+// (data-axis="y"); laptops and phones get a row under the menu ("x").
 (function () {
 	'use strict';
 
-	var rail = document.querySelector('[data-scroll-rail]');
-	if (!rail) {
+	var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	var rails = Array.prototype.slice.call(document.querySelectorAll('[data-scroll-rail]')).map(function (el) {
+		var spinner = el.querySelector('.scroll-rail-spin');
+		return {
+			el: el,
+			axis: el.getAttribute('data-axis') === 'x' ? 'x' : 'y',
+			track: el.querySelector('.scroll-rail-track'),
+			tiles: Array.prototype.slice.call(el.querySelectorAll('.scroll-rail-tile')),
+			piece: el.querySelector('.scroll-rail-piece'),
+			spinner: spinner,
+			imgs: Array.prototype.slice.call(spinner.querySelectorAll('img')),
+			current: -1
+		};
+	});
+	if (!rails.length) {
 		return;
 	}
-	var track = rail.querySelector('.scroll-rail-track');
-	var tiles = Array.prototype.slice.call(rail.querySelectorAll('.scroll-rail-tile'));
-	var piece = rail.querySelector('.scroll-rail-piece');
-	var spinner = rail.querySelector('.scroll-rail-spin');
-	var imgs = Array.prototype.slice.call(spinner.querySelectorAll('img'));
-	var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-	var last = tiles.length - 1;
-	var current = -1;
 	var queued = false;
 
-	var replay = function (cls) {
-		spinner.classList.remove('is-landing', 'is-promoting');
+	var replay = function (rail, cls) {
+		rail.spinner.classList.remove('is-landing', 'is-promoting');
 		// restart the CSS animation
-		spinner.getBoundingClientRect();
-		spinner.classList.add(cls);
+		rail.spinner.getBoundingClientRect();
+		rail.spinner.classList.add(cls);
 	};
 
-	var tileCentre = function (tile) {
-		return track.offsetTop + tile.offsetTop + tile.offsetHeight / 2;
+	// the middle of a square, in the coordinates of the track's container
+	var centre = function (rail, tile) {
+		return {
+			x: rail.track.offsetLeft + tile.offsetLeft + tile.offsetWidth / 2,
+			y: rail.track.offsetTop + tile.offsetTop + tile.offsetHeight / 2
+		};
 	};
 
-	var puff = function (tile) {
+	var puff = function (rail, tile) {
 		if (reduceMotion) {
 			return;
 		}
+		var c = centre(rail, tile);
 		var cloud = document.createElement('span');
 		cloud.className = 'rail-puff';
-		cloud.style.top = tileCentre(tile) + 'px';
+		cloud.style.left = c.x + 'px';
+		cloud.style.top = c.y + 'px';
 		cloud.innerHTML = '<span></span><span></span><span></span><span></span><span></span>';
-		rail.appendChild(cloud);
+		rail.track.parentNode.appendChild(cloud);
 		window.setTimeout(function () {
 			cloud.parentNode.removeChild(cloud);
-		}, 1000);
+		}, 1100);
 	};
 
-	var update = function () {
-		queued = false;
+	var render = function (rail, progress) {
 		// hidden at this screen size
-		if (rail.offsetWidth === 0) {
-			current = -1;
+		if (rail.el.offsetWidth === 0) {
+			rail.current = -1;
 			return;
 		}
-		var max = document.documentElement.scrollHeight - window.innerHeight;
-		var progress = max > 0 ? Math.min(1, Math.max(0, window.pageYOffset / max)) : 0;
+		var last = rail.tiles.length - 1;
 		var f = progress * last;
 		var index = Math.min(last, Math.floor(f + 0.0001));
 		// the pawn wobbles a little as it gets ready to drop
-		spinner.style.rotate = (index === last ? 0 : (f - index) * 6) + 'deg';
+		rail.spinner.style.rotate = (index === last ? 0 : (f - index) * 6) + 'deg';
 
-		if (index === current) {
+		if (index === rail.current) {
 			return;
 		}
-		var first = current === -1;
-		tiles.forEach(function (t, i) {
+		var first = rail.current === -1;
+		rail.tiles.forEach(function (t, i) {
 			var gone = i < index;
 			if (gone && !t.classList.contains('is-poofed') && !first) {
-				puff(t);
+				puff(rail, t);
 			}
 			t.classList.toggle('is-poofed', gone);
 			t.classList.toggle('is-current', i === index);
 		});
-		piece.classList.toggle('is-falling', !first && index > current);
-		piece.style.transform = 'translateY(' + tileCentre(tiles[index]) + 'px)';
+		var c = centre(rail, rail.tiles[index]);
+		rail.piece.classList.toggle('is-falling', !first && index > rail.current);
+		rail.piece.style.transform = rail.axis === 'x' ? 'translateX(' + c.x + 'px)' : 'translateY(' + c.y + 'px)';
 
 		var name = index === last ? 'queen' : 'pawn';
-		var changed = imgs.some(function (img) {
+		var changed = rail.imgs.some(function (img) {
 			return img.classList.contains('is-current') !== (img.getAttribute('data-piece') === name);
 		});
-		imgs.forEach(function (img) {
+		rail.imgs.forEach(function (img) {
 			img.classList.toggle('is-current', img.getAttribute('data-piece') === name);
 		});
 		if (!first) {
-			replay(changed ? 'is-promoting' : 'is-landing');
+			replay(rail, changed ? 'is-promoting' : 'is-landing');
 		}
-		current = index;
+		rail.current = index;
+	};
+
+	var update = function () {
+		queued = false;
+		var max = document.documentElement.scrollHeight - window.innerHeight;
+		var progress = max > 0 ? Math.min(1, Math.max(0, window.pageYOffset / max)) : 0;
+		rails.forEach(function (rail) {
+			render(rail, progress);
+		});
 	};
 
 	var request = function () {
@@ -141,7 +161,10 @@
 
 	window.addEventListener('scroll', request, { passive: true });
 	window.addEventListener('resize', function () {
-		current = -1;
+		// recalculate positions for the new layout
+		rails.forEach(function (rail) {
+			rail.current = -1;
+		});
 		request();
 	});
 	window.addEventListener('load', request);

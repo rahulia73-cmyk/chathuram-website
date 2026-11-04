@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-90 0 480 480" role="img" aria-label="Chathuram pawn mascot">
   <title>Chathuram pawn mascot</title>
   <defs><mask id="f-pawn-h" maskUnits="userSpaceOnUse" x="-200" y="-40" width="700" height="620"><rect x="-200" y="-40" width="700" height="620" fill="#fff"/></mask></defs>
-  <g fill="#000" mask="url(#f-pawn-h)"><circle cx="146" cy="133" r="72"/></g><path d="M93 223 Q158 189 227 201 L230 231 Q161 221 97 249 Z" fill="#f1592a"/><path d="M113 261 Q161 247 213 253 Q222 370 248 470 L50 470 Q100 360 113 261 Z" fill="#000"/>
+  <g fill="#000" mask="url(#f-pawn-h)"><circle cx="146" cy="133" r="72"/></g><path d="M93 223 Q158 189 227 201 L230 231 Q161 221 97 249 Z" fill="#f1592a" stroke="#f1592a" stroke-width="10" stroke-linejoin="round"/><path d="M113 261 Q161 247 213 253 Q222 370 248 470 L50 470 Q100 360 113 261 Z" fill="#000"/>
 </svg>
