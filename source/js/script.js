@@ -45,6 +45,109 @@
 
 })(jQuery);
 
+// Scroll rail (wide screens): as the page scrolls, the square under the pawn
+// vanishes in a puff of cloud and the pawn drops onto the next square.
+// On the last square it becomes a queen.
+(function () {
+	'use strict';
+
+	var rail = document.querySelector('[data-scroll-rail]');
+	if (!rail) {
+		return;
+	}
+	var track = rail.querySelector('.scroll-rail-track');
+	var tiles = Array.prototype.slice.call(rail.querySelectorAll('.scroll-rail-tile'));
+	var piece = rail.querySelector('.scroll-rail-piece');
+	var spinner = rail.querySelector('.scroll-rail-spin');
+	var imgs = Array.prototype.slice.call(spinner.querySelectorAll('img'));
+	var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	var last = tiles.length - 1;
+	var current = -1;
+	var queued = false;
+
+	var replay = function (cls) {
+		spinner.classList.remove('is-landing', 'is-promoting');
+		// restart the CSS animation
+		spinner.getBoundingClientRect();
+		spinner.classList.add(cls);
+	};
+
+	var tileCentre = function (tile) {
+		return track.offsetTop + tile.offsetTop + tile.offsetHeight / 2;
+	};
+
+	var puff = function (tile) {
+		if (reduceMotion) {
+			return;
+		}
+		var cloud = document.createElement('span');
+		cloud.className = 'rail-puff';
+		cloud.style.top = tileCentre(tile) + 'px';
+		cloud.innerHTML = '<span></span><span></span><span></span><span></span><span></span>';
+		rail.appendChild(cloud);
+		window.setTimeout(function () {
+			cloud.parentNode.removeChild(cloud);
+		}, 1000);
+	};
+
+	var update = function () {
+		queued = false;
+		// hidden at this screen size
+		if (rail.offsetWidth === 0) {
+			current = -1;
+			return;
+		}
+		var max = document.documentElement.scrollHeight - window.innerHeight;
+		var progress = max > 0 ? Math.min(1, Math.max(0, window.pageYOffset / max)) : 0;
+		var f = progress * last;
+		var index = Math.min(last, Math.floor(f + 0.0001));
+		// the pawn wobbles a little as it gets ready to drop
+		spinner.style.rotate = (index === last ? 0 : (f - index) * 6) + 'deg';
+
+		if (index === current) {
+			return;
+		}
+		var first = current === -1;
+		tiles.forEach(function (t, i) {
+			var gone = i < index;
+			if (gone && !t.classList.contains('is-poofed') && !first) {
+				puff(t);
+			}
+			t.classList.toggle('is-poofed', gone);
+			t.classList.toggle('is-current', i === index);
+		});
+		piece.classList.toggle('is-falling', !first && index > current);
+		piece.style.transform = 'translateY(' + tileCentre(tiles[index]) + 'px)';
+
+		var name = index === last ? 'queen' : 'pawn';
+		var changed = imgs.some(function (img) {
+			return img.classList.contains('is-current') !== (img.getAttribute('data-piece') === name);
+		});
+		imgs.forEach(function (img) {
+			img.classList.toggle('is-current', img.getAttribute('data-piece') === name);
+		});
+		if (!first) {
+			replay(changed ? 'is-promoting' : 'is-landing');
+		}
+		current = index;
+	};
+
+	var request = function () {
+		if (!queued) {
+			queued = true;
+			window.requestAnimationFrame(update);
+		}
+	};
+
+	window.addEventListener('scroll', request, { passive: true });
+	window.addEventListener('resize', function () {
+		current = -1;
+		request();
+	});
+	window.addEventListener('load', request);
+	update();
+})();
+
 // Pawn path: the mascot hops up one slanted square per level,
 // from 01 Beginner to 08 Grand Master. On the last square it promotes,
 // turning into a queen, knight, rook and bishop: every pawn can be more.
