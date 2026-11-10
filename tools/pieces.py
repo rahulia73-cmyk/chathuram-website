@@ -94,10 +94,10 @@ def heads(plain_head, fill, mask_prefix):
         "knight": (f'<path fill="{fill}" d="M 338.4 358.8 C 337.2 354.6 336.9 349.6 338 345.4 C 338.6 343.2 339.2 341.4 339.6 339.2 '
                    'C 339.8 338.2 340.8 337.9 341.4 338.7 L 342.8 340.7 C 346.6 341 350.6 343.6 353.4 347.6 C 354.6 349.3 354.6 351.2 353.2 352.2 '
                    'C 351.8 353.2 349.8 352.8 348.2 352.1 C 347.4 353.8 347.4 356.2 348.4 358.8 Z"/>'),
-        # a tall soft mitre with a small ball on top and the classic slit
+        # a tall soft mitre with a small ball on top and a curved slit
         "bishop": (f'<mask id="{m}" maskUnits="userSpaceOnUse" x="320" y="320" width="50" height="50">'
                    '<rect x="320" y="320" width="50" height="50" fill="#fff"/>'
-                   '<path d="M 349.6 344.6 L 344.8 349.6" stroke="#000" stroke-width="1.5" stroke-linecap="round"/></mask>'
+                   '<path d="M 350.4 344.2 Q 346.4 345.4 344.9 349.8" fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round"/></mask>'
                    f'<g mask="url(#{m})"><circle cx="344.4" cy="337.6" r="2.1" fill="{fill}"/>'
                    f'<path fill="{fill}" d="M 344.4 340.3 C 349.6 343.4 352.6 348.6 351.6 353.4 C 351 356.8 348 358.8 344.4 358.8 '
                    'C 340.8 358.8 337.8 356.8 337.2 353.4 C 336.2 348.6 339.2 343.4 344.4 340.3 Z"/></g>'),
