@@ -25,11 +25,18 @@
       --stud: #e6e1da;
     }
 
+    // the next square: every face is the logo collar colour, the sides in shadow
     &.is-target {
       --top: #{$primary-color};
-      --side: #a8391a;
-      --side-r: #c4461f;
-      --stud: #ff7b52;
+      --side: #{$primary-color};
+      --side-r: #{$primary-color};
+      --stud: #{$primary-color};
+
+      .pp-side,
+      .pp-side-r,
+      .pp-stud-side {
+        filter: brightness(.72);
+      }
     }
   }
 
