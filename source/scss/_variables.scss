@@ -18,6 +18,7 @@ $light: #faf7f4;
 $gray: #f1ece5;
 
 // Font Variables
-$primary-font: 'Source Sans 3', 'Segoe UI', sans-serif;
-$secondary-font: 'Source Sans 3', 'Segoe UI', sans-serif;
+// the logo lettering is Consolas; Inconsolata is the web font made after it
+$primary-font: 'Inconsolata', Consolas, monospace;
+$secondary-font: 'Inconsolata', Consolas, monospace;
 
