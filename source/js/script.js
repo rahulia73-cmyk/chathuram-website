@@ -35,7 +35,7 @@
 			'City: ' + get('city'),
 			'Student age: ' + get('age'),
 			'Level: ' + get('program'),
-			'Class type: ' + get('mode')
+			'In person or online: ' + get('mode')
 		];
 		if (get('message')) {
 			lines.push('', get('message'));

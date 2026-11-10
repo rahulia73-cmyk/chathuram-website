@@ -507,10 +507,46 @@
 
 /* footer */
 .footer-label {
-  display: inline-block;
-  min-width: 128px;
   color: $white;
   font-weight: 600;
+}
+
+// more room between the description and the links
+.footer-about {
+  @media (min-width: 992px) {
+    padding-right: 64px;
+  }
+}
+
+.footer-explore {
+  @media (min-width: 992px) {
+    padding-left: 24px;
+  }
+}
+
+// contacts: label and value on one straight line, in two aligned columns
+.footer-contacts {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 24px;
+  row-gap: 10px;
+
+  li {
+    display: contents;
+  }
+
+  li > * {
+    white-space: nowrap;
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    row-gap: 2px;
+
+    .footer-label {
+      margin-top: 10px;
+    }
+  }
 }
 
 /* privacy policy and terms */
