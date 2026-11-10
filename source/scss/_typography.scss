@@ -1,20 +1,21 @@
 /*  typography */
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wdth,wght@100..125,400..800&display=swap');
 
 
 body {
   line-height: 1.2;
   font-family: $primary-font;
   -webkit-font-smoothing: antialiased;
-  font-size: 17px;
+  font-size: 18px;
+  font-stretch: 104%;
   color: $text-color;
 }
 
 p, .paragraph {
   font-weight: 400;
   color: $text-color;
-  font-size: 17px;
-  line-height: 1.7;
+  font-size: 18px;
+  line-height: 1.65;
   font-family: $primary-font;
 }
 
@@ -22,9 +23,10 @@ h1,h2,h3,h4,h5,h6,
 .h1,.h2,.h3,.h4,.h5,.h6 {
   color: $text-color-dark;
   font-family: $secondary-font;
-  font-weight: 800;
+  font-weight: 700;
+  font-stretch: 115%;
   line-height: 1.15;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 
 h1, .h1{
