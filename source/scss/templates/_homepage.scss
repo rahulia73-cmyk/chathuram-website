@@ -29,8 +29,7 @@
 .hero-section {
   padding: 190px 0 90px;
   background-color: $light;
-  background-image: repeating-conic-gradient(rgba($black, .025) 0 25%, transparent 0 50%);
-  background-size: 80px 80px;
+  @include rounded-board("231f20", .035, 80px);
 
   @include desktop {
     padding: 160px 0 60px;
@@ -141,8 +140,7 @@
     align-items: flex-end;
     justify-content: center;
     background: $gray;
-    background-image: repeating-conic-gradient(rgba($black, .05) 0 25%, transparent 0 50%);
-    background-size: 60px 60px;
+    @include rounded-board("231f20", .05, 60px);
 
     img {
       height: 62%;

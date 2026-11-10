@@ -17,6 +17,10 @@ $white: #fff;
 $light: #faf7f4;
 $gray: #f1ece5;
 
+// Roundness: soft corners everywhere, like the squares in the logo
+$radius: 12px;
+$radius-sm: 6px;
+
 // Font Variables
 // the logo lettering is Consolas; Inconsolata is the web font made after it
 $primary-font: 'Inconsolata', Consolas, monospace;

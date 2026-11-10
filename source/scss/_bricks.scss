@@ -12,7 +12,7 @@
     top: -7px;
     width: 16px;
     height: 7px;
-    border-radius: 2px 2px 0 0;
+    border-radius: 5px 5px 0 0;
     background: currentColor;
     pointer-events: none;
   }
@@ -110,3 +110,34 @@
   @include studs("000000", 8px, 12px);
 }
 
+
+// soft corners everywhere, like the squares in the logo
+.program-card,
+.contact-card,
+.book-cover,
+.video-frame,
+.feature-card,
+.coach-card,
+.form-control,
+.coach-photo-placeholder {
+  border-radius: $radius;
+}
+
+.video-frame {
+  overflow: hidden;
+}
+
+.program-level,
+.pp-caption-level,
+.navbar-toggler,
+.pawn-path-toggle {
+  border-radius: $radius-sm;
+}
+
+.scroll-rail {
+  border-radius: 32px;
+}
+
+.student-gallery img {
+  border-radius: $radius;
+}
