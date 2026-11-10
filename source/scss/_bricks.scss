@@ -27,7 +27,7 @@
 }
 
 .btn-primary {
-  border-bottom-color: #a8391a;
+  border-bottom-color: $black;
 
   &::before,
   &::after {
@@ -89,7 +89,7 @@
 // section edges: the orange call to action and the black footer sit like
 // bricks with studs along their top edge
 .cta-section {
-  @include studs("f1592a", 9px, 0);
+  @include studs("f15a29", 9px, 0);
   overflow: visible !important;
 
   &::before {
