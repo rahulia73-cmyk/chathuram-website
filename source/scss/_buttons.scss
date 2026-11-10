@@ -1,10 +1,10 @@
 /* Button style: flat, square, no hover animation */
 .btn {
-  font-size: 16px;
+  font-size: 18px;
   font-family: $primary-font;
   text-transform: none;
   font-weight: 700;
-  padding: 15px 40px;
+  padding: 12px 28px;
   border-radius: $radius;
   border: 2px solid transparent;
   white-space: nowrap;
@@ -18,8 +18,8 @@
 }
 
 .btn-sm {
-  font-size: 14px;
-  padding: 10px 30px;
+  font-size: 16px;
+  padding: 8px 22px;
 }
 
 .btn-primary {

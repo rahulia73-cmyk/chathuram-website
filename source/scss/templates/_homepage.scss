@@ -4,12 +4,12 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: .08em;
-  font-size: 14px;
+  font-size: 16px;
   margin-bottom: 12px;
 }
 
 .lead-text {
-  font-size: 20px;
+  font-size: 22px;
   line-height: 1.6;
   max-width: 34em;
 }
@@ -52,7 +52,7 @@
 .program-card {
   display: flex;
   flex-direction: column;
-  padding: 32px 28px;
+  padding: 20px 20px 18px;
   background: $white;
   border: 2px solid $black;
   color: $text-color;
@@ -91,18 +91,18 @@
 .program-level {
   display: inline-block;
   align-self: flex-start;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: .08em;
+  letter-spacing: .06em;
   color: $white;
   background: $primary-color;
-  padding: 4px 10px;
-  margin-bottom: 18px;
+  padding: 3px 10px;
+  margin-bottom: 10px;
 }
 
 .program-age {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 600;
   color: $black;
 }
@@ -155,7 +155,7 @@
 .coach-role {
   color: $primary-color;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 17px;
 }
 
 .faq-item {
@@ -176,7 +176,7 @@
   label {
     font-weight: 600;
     color: $black;
-    font-size: 15px;
+    font-size: 17px;
   }
 
   .form-control {
@@ -191,7 +191,7 @@
 
 .contact-card {
   background: $white;
-  padding: 36px 32px;
+  padding: 24px 22px;
   border: 2px solid $black;
 }
 
@@ -312,7 +312,7 @@
 .hero-note {
   font-weight: 600;
   color: $black;
-  font-size: 16px;
+  font-size: 18px;
   margin: 8px 0 0;
 }
 
@@ -325,7 +325,7 @@
   text-align: center;
 
   p {
-    font-size: 15px;
+    font-size: 17px;
     line-height: 1.5;
 
     strong {
@@ -461,7 +461,7 @@
 
 /* why chess */
 .why-list li {
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.6;
 
   strong {
@@ -495,7 +495,7 @@
 
 .info-num {
   font-weight: 700;
-  font-size: 15px;
+  font-size: 17px;
   color: $primary-color;
   min-width: 24px;
 }
