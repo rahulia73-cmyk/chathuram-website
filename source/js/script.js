@@ -233,6 +233,7 @@
 	}
 
 	var current = 0;
+	tiles[0].classList.add('is-target');
 	var timer = null;
 	var playing = false;
 	var paused = false;
@@ -295,6 +296,7 @@
 					become('pawn');
 					current = 0;
 					place(0);
+					tiles[0].classList.add('is-target');
 					pawn.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, fill: 'forwards' });
 					wait(700, step);
 				};
@@ -324,10 +326,11 @@
 		tiles[next].classList.add('is-target');
 		wait(300, function () {
 			jump(current, next, { lift: 34 }, function () {
+				// the square the pawn now stands on stays saffron; the ones behind turn grey
 				for (var i = 0; i < next; i++) {
+					tiles[i].classList.remove('is-target');
 					tiles[i].classList.add('is-visited');
 				}
-				tiles[next].classList.remove('is-target');
 				current = next;
 				place(current);
 				wait(current === last ? 500 : 450, step);
