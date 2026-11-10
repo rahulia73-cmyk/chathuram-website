@@ -43,6 +43,8 @@
   &-tile {
     position: relative;
     display: block;
+    pointer-events: auto;
+    cursor: pointer;
     width: 26px;
     height: 26px;
     background: $black;
@@ -52,6 +54,13 @@
 
     &.is-current {
       background: $primary-color;
+    }
+
+    // a bigger, invisible tap area around each small square
+    &::after {
+      content: "";
+      position: absolute;
+      inset: -10px;
     }
 
     &.is-poofed {

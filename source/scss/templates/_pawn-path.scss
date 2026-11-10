@@ -106,8 +106,6 @@
   .pp-pawn,
   .pp-spin {
     color: $black;
-    transform-origin: 0 0;
-    will-change: transform;
   }
 
   .pp-piece {
@@ -140,6 +138,14 @@
 .pawn-path-caption {
   margin: 8px 0 0;
   text-align: center;
+  // keep clear of the Pause button in the corner
+  padding: 0 72px;
+
+  @include tablet {
+    text-align: left;
+    padding: 0 84px 0 0;
+    font-size: 16px;
+  }
   font-weight: 700;
   color: $black;
   min-height: 1.7em;

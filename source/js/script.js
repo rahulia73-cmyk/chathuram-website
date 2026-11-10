@@ -159,6 +159,19 @@
 		}
 	};
 
+	// tapping a square scrolls the page to the point where the pawn stands on it
+	rails.forEach(function (rail) {
+		var last = rail.tiles.length - 1;
+		rail.tiles.forEach(function (tile, i) {
+			tile.addEventListener('click', function () {
+				var max = document.documentElement.scrollHeight - window.innerHeight;
+				// aim at the middle of the square's stretch of the page
+				var target = i === 0 ? 0 : (i === last ? max : Math.round(max * (i + 0.05) / last));
+				window.scrollTo({ top: target, behavior: reduceMotion ? 'auto' : 'smooth' });
+			});
+		});
+	});
+
 	window.addEventListener('scroll', request, { passive: true });
 	window.addEventListener('resize', function () {
 		// recalculate positions for the new layout
@@ -178,7 +191,7 @@
 	'use strict';
 
 	var root = document.querySelector('[data-pawn-path]');
-	if (!root || !root.animate) {
+	if (!root) {
 		return;
 	}
 
@@ -198,11 +211,39 @@
 	var pos = function (i) {
 		return { x: parseFloat(tiles[i].getAttribute('data-x')), y: parseFloat(tiles[i].getAttribute('data-y')) };
 	};
+	// moves are drawn frame by frame through the SVG transform attribute,
+	// which every browser (iPhone Safari included) animates reliably
 	var at = function (x, y) {
-		return 'translate(' + x + 'px, ' + y + 'px)';
+		pawn.setAttribute('transform', 'translate(' + x.toFixed(2) + ' ' + y.toFixed(2) + ')');
 	};
 	var turn = function (deg, sx, sy) {
-		return 'translate(0px, -' + PIVOT + 'px) rotate(' + deg + 'deg) translate(0px, ' + PIVOT + 'px) scale(' + sx + ', ' + sy + ')';
+		spin.setAttribute('transform', 'translate(0 -' + PIVOT + ') rotate(' + deg.toFixed(2) + ') translate(0 ' + PIVOT + ') scale(' + sx.toFixed(3) + ' ' + sy.toFixed(3) + ')');
+	};
+	var ease = function (t) {
+		return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+	};
+	var bump = function (t, from, to) {
+		// 0 outside [from, to], rising to 1 and back in between
+		if (t <= from || t >= to) {
+			return 0;
+		}
+		return Math.sin(Math.PI * (t - from) / (to - from));
+	};
+	var tween = function (duration, frame, done) {
+		var startTime = null;
+		var tick = function (now) {
+			if (startTime === null) {
+				startTime = now;
+			}
+			var t = Math.min(1, (now - startTime) / duration);
+			frame(t);
+			if (t < 1) {
+				window.requestAnimationFrame(tick);
+			} else if (done) {
+				done();
+			}
+		};
+		window.requestAnimationFrame(tick);
 	};
 	var caption = function (level, name) {
 		if (captionLevel) {
@@ -212,7 +253,7 @@
 	};
 	var place = function (i) {
 		var p = pos(i);
-		pawn.style.transform = at(p.x, p.y);
+		at(p.x, p.y);
 		caption('Level ' + tiles[i].getAttribute('data-level'), tiles[i].getAttribute('data-name'));
 	};
 	var become = function (piece) {
@@ -254,20 +295,18 @@
 		var lean = opts.lean === undefined ? 4 : opts.lean;
 		var duration = opts.duration || 1100;
 		busy = true;
-		pawn.animate([
-			{ transform: at(a.x, a.y) },
-			{ transform: at(a.x, a.y), offset: 0.15 },
-			{ transform: at((a.x + b.x) / 2, (a.y + b.y) / 2 - opts.lift), offset: 0.55, easing: 'ease-in' },
-			{ transform: at(b.x, b.y), offset: 0.9 },
-			{ transform: at(b.x, b.y) }
-		], { duration: duration, easing: 'ease-out' });
-		var anim = spin.animate([
-			{ transform: turn(0, 1, 1) },
-			{ transform: turn(0, 1.05, 0.94), offset: 0.15 },
-			{ transform: turn(lean, 1, 1), offset: 0.55 },
-			{ transform: turn(0, 1.04, 0.96), offset: 0.92 },
-			{ transform: turn(0, 1, 1) }
-		], { duration: duration, easing: 'ease-in-out' });
+		tween(duration, function (t) {
+			// hold, take off, fly along an arc, land
+			var u = ease(Math.min(1, Math.max(0, (t - 0.15) / 0.75)));
+			at(a.x + (b.x - a.x) * u, a.y + (b.y - a.y) * u - opts.lift * Math.sin(Math.PI * u));
+			// a little squash before take-off and on landing, a slight lean in the air
+			var squash = 0.05 * bump(t, 0, 0.2) + 0.04 * bump(t, 0.82, 1);
+			turn(lean * bump(t, 0.15, 0.9), 1 + squash, 1 - squash * 1.2);
+		}, function () {
+			busy = false;
+			turn(0, 1, 1);
+			done();
+		});
 		if (opts.swapTo) {
 			window.setTimeout(function () {
 				become(opts.swapTo);
@@ -276,11 +315,6 @@
 				}
 			}, duration * 0.5);
 		}
-		anim.onfinish = function () {
-			busy = false;
-			spin.style.transform = '';
-			done();
-		};
 	};
 
 	var step;
@@ -291,15 +325,19 @@
 		}
 		if (k === promotions.length) {
 			wait(1400, function () {
-				pawn.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: 'forwards' }).onfinish = function () {
+				tween(300, function (t) {
+					pawn.setAttribute('opacity', (1 - t).toFixed(2));
+				}, function () {
 					clear();
 					become('pawn');
 					current = 0;
 					place(0);
 					tiles[0].classList.add('is-target', 'is-home');
-					pawn.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, fill: 'forwards' });
+					tween(300, function (t) {
+						pawn.setAttribute('opacity', t.toFixed(2));
+					});
 					wait(700, step);
-				};
+				});
 			});
 			return;
 		}

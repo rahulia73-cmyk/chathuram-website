@@ -316,6 +316,12 @@
   margin: 8px 0 0;
 }
 
+/* hero buttons: room for the studs when they stack on a phone */
+.hero-actions {
+  gap: 26px 16px;
+  margin-bottom: 18px;
+}
+
 /* meet the pieces */
 .pieces-lineup {
   align-items: flex-start;
@@ -323,6 +329,11 @@
 
 .piece-item {
   text-align: center;
+
+  @include mobile {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
 
   p {
     font-size: 17px;
@@ -338,6 +349,11 @@
 
 .piece-img {
   height: 170px;
+
+  @include mobile {
+    height: 110px;
+  }
+
   width: auto;
   max-width: 100%;
   margin-bottom: 18px;
