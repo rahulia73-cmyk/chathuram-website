@@ -40,16 +40,26 @@
     }
   }
 
+  // a same-colour edge with round joins gives every brick face soft corners
   .pp-top {
     fill: var(--top);
+    stroke: var(--top);
+    stroke-width: 7;
+    stroke-linejoin: round;
   }
 
   .pp-side {
     fill: var(--side);
+    stroke: var(--side);
+    stroke-width: 7;
+    stroke-linejoin: round;
   }
 
   .pp-side-r {
     fill: var(--side-r);
+    stroke: var(--side-r);
+    stroke-width: 7;
+    stroke-linejoin: round;
   }
 
   .pp-stud-side {

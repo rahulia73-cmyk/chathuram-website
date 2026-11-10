@@ -216,8 +216,7 @@ a h4{
 .page-title-section {
   padding: 200px 0 80px;
   background-color: $secondary-color;
-  background-image: repeating-conic-gradient(rgba($white, .04) 0 25%, transparent 0 50%);
-  background-size: 64px 64px;
+  @include rounded-board("ffffff", .05, 64px);
   position: relative;
   overflow: hidden;
 
@@ -252,6 +251,7 @@ a h4{
       background: $primary-color;
       left: -26px;
       top: 9px;
+      border-radius: 3px;
       transform: skewX(-38deg) rotate(-12deg);
     }
   }

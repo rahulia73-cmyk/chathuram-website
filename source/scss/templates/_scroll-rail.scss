@@ -46,6 +46,7 @@
     width: 26px;
     height: 26px;
     background: $black;
+    border-radius: 6px;
     transform: scaleY(.56) rotate(45deg);
     transition: opacity .3s ease, transform .3s ease, background-color .3s ease;
 

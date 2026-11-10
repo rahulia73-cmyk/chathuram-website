@@ -32,6 +32,13 @@
 @mixin size($size){
   width: $size; height: $size;
 }
+// a chessboard background of soft, rounded squares
+// $hex is a colour without the leading # so it can sit inside the SVG
+@mixin rounded-board($hex, $opacity, $size: 80px) {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23#{$hex}' fill-opacity='#{$opacity}'%3E%3Crect x='3' y='3' width='34' height='34' rx='9'/%3E%3Crect x='43' y='43' width='34' height='34' rx='9'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: $size $size;
+}
+
 // a row of brick studs along the top edge of an element (side view)
 // $hex is a colour without the leading # so it can sit inside the SVG
 @mixin studs($hex, $height: 7px, $inset: 8px) {
@@ -44,7 +51,7 @@
     right: $inset;
     top: -$height;
     height: $height;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='7' viewBox='0 0 30 7'%3E%3Cpath d='M6 7V2a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5Z' fill='%23#{$hex}'/%3E%3C/svg%3E") repeat-x left bottom / auto $height;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='7' viewBox='0 0 30 7'%3E%3Cpath d='M6 7V4.5A4.5 4.5 0 0 1 10.5 0h9A4.5 4.5 0 0 1 24 4.5V7Z' fill='%23#{$hex}'/%3E%3C/svg%3E") repeat-x left bottom / auto $height;
     pointer-events: none;
   }
 }
