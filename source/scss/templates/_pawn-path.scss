@@ -77,6 +77,24 @@
     fill: var(--stud);
   }
 
+  // the block the pawn stands on: no bumps, a round socket the pawn sits in
+  .pp-socket {
+    display: none;
+    fill: var(--top);
+    filter: brightness(.68);
+  }
+
+  .pp-tile.is-home {
+    .pp-stud-side,
+    .pp-stud-top {
+      display: none;
+    }
+
+    .pp-socket {
+      display: inline;
+    }
+  }
+
   .pp-rank {
     font-family: $secondary-font;
     font-weight: 700;

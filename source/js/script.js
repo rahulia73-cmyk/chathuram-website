@@ -222,18 +222,18 @@
 	};
 	var clear = function () {
 		tiles.forEach(function (t) {
-			t.classList.remove('is-target', 'is-visited');
+			t.classList.remove('is-target', 'is-visited', 'is-home');
 		});
 	};
 
 	if (reduceMotion) {
 		place(last);
-		tiles[last].classList.add('is-target');
+		tiles[last].classList.add('is-target', 'is-home');
 		return;
 	}
 
 	var current = 0;
-	tiles[0].classList.add('is-target');
+	tiles[0].classList.add('is-target', 'is-home');
 	var timer = null;
 	var playing = false;
 	var paused = false;
@@ -296,7 +296,7 @@
 					become('pawn');
 					current = 0;
 					place(0);
-					tiles[0].classList.add('is-target');
+					tiles[0].classList.add('is-target', 'is-home');
 					pawn.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, fill: 'forwards' });
 					wait(700, step);
 				};
@@ -328,9 +328,11 @@
 			jump(current, next, { lift: 34 }, function () {
 				// the square the pawn now stands on stays saffron; the ones behind turn grey
 				for (var i = 0; i < next; i++) {
-					tiles[i].classList.remove('is-target');
+					tiles[i].classList.remove('is-target', 'is-home');
 					tiles[i].classList.add('is-visited');
 				}
+				// the pawn clicks into the socket of its new block
+				tiles[next].classList.add('is-home');
 				current = next;
 				place(current);
 				wait(current === last ? 500 : 450, step);
