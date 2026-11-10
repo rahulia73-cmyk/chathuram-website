@@ -13,10 +13,17 @@
 
   // each square is a brick: a top face with four studs and two side faces
   .pp-tile {
-    --top: #1c1c1c;
-    --side: #000;
-    --side-r: #0d0d0d;
-    --stud: #2e2e2e;
+    // every face is the logo black; the sides are shaded below
+    --top: #{$black};
+    --side: #{$black};
+    --side-r: #{$black};
+    --stud: #{$black};
+
+    .pp-side,
+    .pp-side-r,
+    .pp-stud-side {
+      filter: brightness(.6);
+    }
 
     &.is-visited {
       --top: #d9d4cc;
