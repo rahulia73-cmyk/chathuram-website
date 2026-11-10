@@ -50,8 +50,12 @@
   }
 
   img {
-    height: 56px;
+    height: 66px;
     width: auto;
+
+    @include mobile {
+      height: 50px;
+    }
   }
 
   &-text {
