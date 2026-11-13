@@ -137,22 +137,27 @@
 <!-- /programs preview -->
 
 <!-- puzzle book -->
-<section class="section bg-gray book-section">
+<section class="section bg-gray book-section" id="book">
   <div class="container">
     <div class="row align-items-center">
       <div class="col-lg-5 mb-5 mb-lg-0 text-center">
         <div class="book-cover" aria-hidden="true">
-          <span class="book-cover-title">Chess Puzzles<br>for Kids</span>
+          <span class="book-cover-title">Checkmate<br>in One!</span>
           <img src="images/brand/pieces/pawn-light.svg?v=@@version" alt="">
-          <span class="book-cover-brand">Chathuram<span class="text-primary">.</span></span>
+          <span class="book-cover-sub">100 chess puzzles for kids</span>
         </div>
       </div>
       <div class="col-lg-6 offset-lg-1">
         <p class="eyebrow">Our puzzle book</p>
-        <h2 class="mb-3">Puzzles we wrote for our young players.</h2>
-        <p>We created our own chess puzzle book for kids, the same puzzles our students solve in class. Kids can keep practising at home, one square at a time.</p>
-        @@if (kindleLink) {<a href="@@kindleLink" class="btn btn-primary mt-2" target="_blank" rel="noopener">Get it on Kindle</a>}
-        @@if (!kindleLink) {<p class="book-soon">Coming soon on Kindle</p>}
+        <h2 class="mb-3">Checkmate in One! 100 chess puzzles for kids.</h2>
+        <p>The same puzzles our students solve in class, now in a book. One hundred positions, each with a single move that wins. For ages 4 and up, so practice keeps going at home.</p>
+        @@if (bookAmazonLink || bookIndiaLink || kindleLink) {<div class="book-buttons mt-2">}
+        @@if (bookAmazonLink) {<a href="@@bookAmazonLink" class="btn btn-primary mr-2 mb-2" target="_blank" rel="noopener">Buy in the USA (Amazon.com)</a>}
+        @@if (bookIndiaLink) {<a href="@@bookIndiaLink" class="btn btn-outline-dark mr-2 mb-2" target="_blank" rel="noopener">Buy in India (Amazon.in)</a>}
+        @@if (bookNotionLink) {<a href="@@bookNotionLink" class="btn btn-outline-dark mr-2 mb-2" target="_blank" rel="noopener">Notion Press store</a>}
+        @@if (kindleLink) {<a href="@@kindleLink" class="btn btn-outline-dark mb-2" target="_blank" rel="noopener">Kindle edition</a>}
+        @@if (bookAmazonLink || bookIndiaLink || kindleLink) {</div>}
+        @@if (!bookAmazonLink && !bookIndiaLink && !kindleLink) {<p class="book-soon">Out now in paperback</p>}
       </div>
     </div>
   </div>
