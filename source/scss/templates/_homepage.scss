@@ -450,6 +450,12 @@
 }
 
 /* puzzle book */
+.book-cover-img {
+  width: 260px;
+  max-width: 100%;
+  height: auto;
+}
+
 .book-cover {
   display: inline-flex;
   flex-direction: column;
